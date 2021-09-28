@@ -4,10 +4,11 @@ import axios from "axios";
 import { TodoItem } from "@shared/entities/TodoItem";
 import { motion } from "framer-motion";
 import { useRouter } from "next/dist/client/router";
+import TodoItemDisplay from "./TodoItemDisplay";
 
-interface TodoDisplayProps {}
+interface TodoListDisplayProps {}
 
-const TodoDisplay: FunctionComponent<TodoDisplayProps> = () => {
+const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
   const router = useRouter();
 
@@ -31,20 +32,7 @@ const TodoDisplay: FunctionComponent<TodoDisplayProps> = () => {
   if (todos.length > 0) {
     todoMap = todos
       .map((todo, i) => {
-        return (
-          <motion.li
-            key={i}
-            className="p-3 my-3 bg-gradient-to-b from-black to-gray-800 rounded-lg"
-          >
-            <div>
-              <p>
-                <b>{todo.title}</b>
-              </p>
-              <br />
-              <p>{todo.description}</p>
-            </div>
-          </motion.li>
-        );
+        return <TodoItemDisplay key={i} todoItem={todo} />;
       })
       .reduce((prev, current) => {
         return (
@@ -57,10 +45,10 @@ const TodoDisplay: FunctionComponent<TodoDisplayProps> = () => {
   }
 
   return (
-    <div className="p-3">
+    <div className="flex-grow mx-3 p-5">
       <ul>{todoMap}</ul>
     </div>
   );
 };
 
-export default TodoDisplay;
+export default TodoListDisplay;

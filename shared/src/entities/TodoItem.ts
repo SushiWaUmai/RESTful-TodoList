@@ -8,7 +8,7 @@ export class TodoItem {
   description: string;
 
   @prop()
-  dueDate: Date;
+  dueDate?: Date;
 }
 
 export const TodoItemModel = getModelForClass(TodoItem);

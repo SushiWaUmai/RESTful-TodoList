@@ -86,11 +86,13 @@ export default function RegisterPage() {
         {({ isSubmitting }) => (
           <Form>
             <InputFieldComponent
+              type="text"
               name="username"
               placeholder="Username"
               label="Username"
             />
             <InputFieldComponent
+              type="email"
               name="email"
               placeholder="E-Mail"
               label="E-Mail"

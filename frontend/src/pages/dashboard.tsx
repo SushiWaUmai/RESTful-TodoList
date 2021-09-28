@@ -1,10 +1,13 @@
 import { FunctionComponent, useContext } from "react";
-import TodoDisplay from "../components/dashboard/TodoDisplay";
+import TodoListDisplay from "../components/dashboard/TodoListDisplay";
+import TodoManageContext from "../components/dashboard/TodoManageContext";
 import { UserContext } from "../components/LayoutComponent";
+import useModal from "../hooks/useModal";
 interface DashboardPageProps {}
 
 const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
   const { user, setUser } = useContext(UserContext);
+  const todoModal = useModal();
 
   return (
     <div className="flex justify-center">
@@ -13,8 +16,10 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
           <div>
             <h1 className="text-5xl">Welcome {user.username}!</h1>
             <hr />
+            <br />
             <div className="flex flex-row justify-between">
-              <TodoDisplay />
+              <TodoManageContext todoModal={todoModal}/>
+              <TodoListDisplay />
             </div>
           </div>
         ) : (

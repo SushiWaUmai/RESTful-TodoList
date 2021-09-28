@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 export interface ModalAttributes { 
-  isOpen : boolean;
+  isOpen: boolean;
   close: () => void;
   open: () => void;
 }

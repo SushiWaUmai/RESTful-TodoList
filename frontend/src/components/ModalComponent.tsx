@@ -57,9 +57,6 @@ const ModalComponent: FunctionComponent<ModalComponentProps> = ({
               exit="exit"
             >
               {children}
-              <ButtonComponent className="bg-black p-3 m-3 rounded" onClick={handleClose}>
-                Close
-              </ButtonComponent>
             </motion.div>
           </div>
         </>
