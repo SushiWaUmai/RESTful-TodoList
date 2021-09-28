@@ -1,0 +1,55 @@
+import { Dispatch, FunctionComponent, SetStateAction } from "react";
+import Link from "next/link";
+import { SuccessResponse } from "@shared/SharedTypes";
+import axios from "axios";
+import moment from "moment";
+import { useRouter } from "next/dist/client/router";
+import { User } from "@shared/entities/User";
+import ButtonComponent from "../ButtonComponent";
+
+interface UserTabProps {
+  user: User;
+  setUser: Dispatch<SetStateAction<User | undefined>> | undefined;
+}
+
+const UserTab: FunctionComponent<UserTabProps> = ({ user, setUser }) => {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    let data: SuccessResponse = (
+      await axios.get("http://localhost:4000/user/logout", {
+        withCredentials: true,
+      })
+    )?.data;
+
+    if (data.error) {
+      console.error("Failed to log out");
+    }
+
+    if (setUser) setUser(undefined);
+    router.push("/");
+  };
+
+  return (
+    <>
+      <h1 className="text-4xl lg:text-5xl">{user.username}</h1>
+      <br />
+      <h1 className="text-gray-300">{user.email}</h1>
+      <br />
+      <h1 className="text-gray-300">
+        User since {moment(user.createdAt).format("DD MMMM YYYY")}
+      </h1>
+      <ButtonComponent className="my-5 p-3 block bg-green-800 rounded">
+        <Link href="/dashboard">Dashboard</Link>
+      </ButtonComponent>
+      <ButtonComponent
+        onClick={handleLogout}
+        className="my-5 p-3 block bg-yellow-700 rounded"
+      >
+        Log out
+      </ButtonComponent>
+    </>
+  );
+};
+
+export default UserTab;

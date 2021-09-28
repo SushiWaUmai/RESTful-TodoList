@@ -1,0 +1,16 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "dependencies": {
+    "@typegoose/typegoose": "^9.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
