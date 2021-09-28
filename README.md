@@ -1,6 +1,7 @@
 # RESTful Todolist :tada:
 
 This is a side project for learning the web.
+Note: This project is still WIP
 
 ## How to build :hammer:
 This project was made with the monorepo architechture:
