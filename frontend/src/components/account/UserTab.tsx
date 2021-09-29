@@ -1,22 +1,21 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import Link from "next/link";
-import { SuccessResponse } from "@shared/SharedTypes";
+import { GenericResponse, UserNoPassword } from "@shared/SharedTypes";
 import axios from "axios";
 import moment from "moment";
 import { useRouter } from "next/dist/client/router";
-import { User } from "@shared/entities/User";
 import ButtonComponent from "../ButtonComponent";
 
 interface UserTabProps {
-  user: User;
-  setUser: Dispatch<SetStateAction<User | undefined>> | undefined;
+  user: UserNoPassword;
+  setUser: Dispatch<SetStateAction<UserNoPassword | undefined>> | undefined;
 }
 
 const UserTab: FunctionComponent<UserTabProps> = ({ user, setUser }) => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    let data: SuccessResponse = (
+    let data: GenericResponse = (
       await axios.get("http://localhost:4000/user/logout", {
         withCredentials: true,
       })

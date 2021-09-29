@@ -2,6 +2,8 @@ import { TodoItem } from "./entities/TodoItem";
 import { User } from "./entities/User";
 import { FieldError } from "./utils/Error";
 
+export type UserNoPassword = Omit<User, "password">;
+
 export interface TodoItemResponse {
   todo?: TodoItem;
   error?: FieldError[];
@@ -14,7 +16,7 @@ export interface UserTodoItemResponse {
 }
 
 export interface UserResponse {
-  user?: User;
+  user?: UserNoPassword;
   error?: FieldError[];
 }
 

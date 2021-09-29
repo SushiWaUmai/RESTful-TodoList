@@ -2,13 +2,12 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import Head from "next/head";
 import NavbarComponent from "./NavbarComponent";
 import FooterComponent from "./FooterComponent";
-import { UserResponse } from "@shared/SharedTypes";
+import { UserNoPassword, UserResponse } from "@shared/SharedTypes";
 import axios from "axios";
-import { User } from "@shared/entities/User";
 
 interface UserContextProps {
-  user?: User;
-  setUser?: React.Dispatch<React.SetStateAction<User | undefined>>;
+  user?: UserNoPassword;
+  setUser?: React.Dispatch<React.SetStateAction<UserNoPassword | undefined>>;
 }
 
 export const UserContext = React.createContext<UserContextProps>({});
@@ -18,7 +17,7 @@ interface LayoutComponentProps {}
 const LayoutComponent: FunctionComponent<LayoutComponentProps> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserNoPassword>();
 
   useEffect(() => {
     const getUser = async () => {
