@@ -11,7 +11,7 @@ interface FooterComponentProps {}
 
 const FooterComponent: FunctionComponent<FooterComponentProps> = () => {
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-wrap justify-center">
       <ButtonComponent className="inline m-5">
         <a href="https://github.com/sushiwaumai">
           <title>Github</title>

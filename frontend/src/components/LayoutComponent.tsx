@@ -37,7 +37,7 @@ const LayoutComponent: FunctionComponent<LayoutComponentProps> = ({
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <div className="bg-gray-200 text-black text-xl dark:bg-gray-700 dark:text-white lg:text-2xl font-mono">
+      <div className="text-black text-xl dark:text-white lg:text-2xl font-mono">
         <div className="flex h-screen flex-col justify-between">
           <Head>
             <meta httpEquiv="content-language" content="en" />
@@ -45,7 +45,9 @@ const LayoutComponent: FunctionComponent<LayoutComponentProps> = ({
           <header>
             <NavbarComponent />
           </header>
-          <main className="flex-grow">{children}</main>
+          <main className="bg-gray-200 dark:bg-gray-700 flex-grow">
+            {children}
+          </main>
           <footer className="bg-gray-600">
             <FooterComponent />
           </footer>

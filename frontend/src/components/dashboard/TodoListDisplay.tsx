@@ -1,16 +1,16 @@
 import { UserTodoItemResponse } from "@shared/SharedTypes";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, HTMLAttributes, useEffect, useState } from "react";
 import axios from "axios";
 import { TodoItem } from "@shared/entities/TodoItem";
 import { motion } from "framer-motion";
 import { useRouter } from "next/dist/client/router";
 import TodoItemDisplay from "./TodoItemDisplay";
-import useModal, { ModalAttributes } from "../../hooks/useModal";
+import useModal from "../../hooks/useModal";
 import TodoItemModal from "./TodoItemModal";
 
-interface TodoListDisplayProps {}
+type TodoListDisplayProps = HTMLAttributes<HTMLDivElement>;
 
-const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = ({}) => {
+const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
   const [selected, setSelected] = useState<TodoItem>();
   const todoModal = useModal();
@@ -60,14 +60,16 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = ({}) => {
   }
 
   return (
-    <div className="flex-grow mx-3 p-5">
-      <ul>{todoMap}</ul>
-      <TodoItemModal
-        modalTitle="Edit TodoItem"
-        buttonLabel="Edit Todo"
-        initialValues={selected}
-        todoModal={todoModal}
-      />
+    <div {...props}>
+      <div className="mx-3 p-5">
+        <ul>{todoMap}</ul>
+        <TodoItemModal
+          modalTitle="Edit TodoItem"
+          buttonLabel="Edit Todo"
+          initialValues={selected}
+          todoModal={todoModal}
+        />
+      </div>
     </div>
   );
 };

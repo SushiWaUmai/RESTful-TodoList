@@ -14,12 +14,12 @@ const TodoItemDisplay: FunctionComponent<TodoItemDisplayProps> = (props) => {
   return (
     <motion.li {...props}>
       <div
-        className="p-3 mb-3 bg-gradient-to-b from-black to-gray-800 rounded-lg"
+        className="p-3 mb-3 bg-gray-900 hover:bg-gray-800 rounded-lg"
         onDoubleClick={onDoubleClick}
       >
         <div className="flex justify-between">
           <div className="flex justify-center align-middle">
-            <h1 className="text-3xl">
+            <h1 className="text-3xl select-none">
               <b>{todoItem.title}</b>
             </h1>
           </div>
@@ -29,7 +29,6 @@ const TodoItemDisplay: FunctionComponent<TodoItemDisplayProps> = (props) => {
               <div className="absolute w-full h-full top-0 left-0 flex justify-center items-center">
                 <BsCheck className="opacity-0 hover:opacity-100" size={32} />
               </div>
-              {/* <BsCheck size={32} className="absolute left-0 opacity-0 hover:opacity-100" /> */}
             </div>
           </div>
         </div>

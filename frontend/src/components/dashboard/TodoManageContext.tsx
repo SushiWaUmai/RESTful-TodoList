@@ -1,15 +1,15 @@
-import { FunctionComponent } from "react";
-import useModal, { ModalAttributes } from "../../hooks/useModal";
+import { FunctionComponent, HTMLAttributes } from "react";
+import useModal from "../../hooks/useModal";
 import ButtonComponent from "../ButtonComponent";
 import TodoItemModal from "./TodoItemModal";
 
-interface TodoManageContextProps {}
+type TodoManageContextProps = HTMLAttributes<HTMLDivElement>;
 
-const TodoManageContext: FunctionComponent<TodoManageContextProps> = ({}) => {
+const TodoManageContext: FunctionComponent<TodoManageContextProps> = (props) => {
   const todoModal = useModal();
   
   return (
-    <div>
+    <div {...props}>
       <ButtonComponent
         onClick={todoModal.open}
         className="p-4 rounded bg-gradient-to-tr from-green-500 to-blue-400"
