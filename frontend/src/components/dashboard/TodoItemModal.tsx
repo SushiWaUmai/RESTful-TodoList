@@ -13,6 +13,7 @@ import { BsX } from "react-icons/bs";
 
 interface TodoItemModalProps {
   modalTitle: string;
+  buttonLabel: string;
   todoModal: ModalAttributes;
   initialValues?: TodoItem;
 }
@@ -20,6 +21,7 @@ interface TodoItemModalProps {
 const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
   todoModal,
   modalTitle,
+  buttonLabel,
   initialValues,
 }) => {
   const router = useRouter();
@@ -92,7 +94,7 @@ const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
                         onClick={todoModal.close}
                         disabled={isSubmitting}
                       >
-                        Create Todo
+                        {buttonLabel}
                       </ButtonComponent>
                     </div>
                   </Form>

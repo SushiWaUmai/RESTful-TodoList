@@ -1,15 +1,13 @@
 import { FunctionComponent } from "react";
-import { ModalAttributes } from "../../hooks/useModal";
+import useModal, { ModalAttributes } from "../../hooks/useModal";
 import ButtonComponent from "../ButtonComponent";
 import TodoItemModal from "./TodoItemModal";
 
-interface TodoManageContextProps {
-  todoModal: ModalAttributes;
-}
+interface TodoManageContextProps {}
 
-const TodoManageContext: FunctionComponent<TodoManageContextProps> = ({
-  todoModal,
-}) => {
+const TodoManageContext: FunctionComponent<TodoManageContextProps> = ({}) => {
+  const todoModal = useModal();
+  
   return (
     <div>
       <ButtonComponent
@@ -18,7 +16,11 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = ({
       >
         Create Todo
       </ButtonComponent>
-      <TodoItemModal modalTitle="Create TodoItem" todoModal={todoModal} />
+      <TodoItemModal
+        modalTitle="Create TodoItem"
+        buttonLabel="Create Todo"
+        todoModal={todoModal}
+      />
     </div>
   );
 };

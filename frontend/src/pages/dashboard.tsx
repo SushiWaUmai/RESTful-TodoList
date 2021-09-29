@@ -7,7 +7,6 @@ interface DashboardPageProps {}
 
 const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
   const { user, setUser } = useContext(UserContext);
-  const todoModal = useModal();
 
   return (
     <div className="flex justify-center">
@@ -18,7 +17,7 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
             <hr />
             <br />
             <div className="flex flex-row justify-between">
-              <TodoManageContext todoModal={todoModal}/>
+              <TodoManageContext />
               <TodoListDisplay />
             </div>
           </div>
