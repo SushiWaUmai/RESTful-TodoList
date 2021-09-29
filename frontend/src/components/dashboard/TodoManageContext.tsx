@@ -40,6 +40,7 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
     }
   };
 
+  // TODO: Delete all completed tasks with a button
   return (
     <div {...divProps}>
       <ButtonComponent
