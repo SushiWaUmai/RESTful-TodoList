@@ -14,10 +14,9 @@ const TodoItemDisplay: FunctionComponent<TodoItemDisplayProps> = (props) => {
       className="p-3 mb-3 bg-gradient-to-b from-black to-gray-800 rounded-lg"
     >
       <div>
-        <p>
+        <h1 className="text-3xl">
           <b>{todoItem.title}</b>
-        </p>
-        <br />
+        </h1>
         <p>{todoItem.description}</p>
       </div>
     </motion.li>

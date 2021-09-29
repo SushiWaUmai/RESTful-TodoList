@@ -48,14 +48,23 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
         {({ isSubmitting }) => (
           <Form>
             <InputFieldComponent
-              name="usernameOrEmail"
-              placeholder="Username or Email"
+              fieldProps={{
+                type: "text",
+                name: "usernameOrEmail",
+                placeholder: "Username or Email",
+                className: "inputfield"
+              }}
+              divProps={{ className: "my-5" }}
               label="Username or Email"
             />
             <InputFieldComponent
-              type="password"
-              name="password"
-              placeholder="Password"
+              fieldProps={{
+                type: "password",
+                name: "password",
+                placeholder: "Password",
+                className: "inputfield"
+              }}
+              divProps={{ className: "my-5" }}
               label="Password"
             />
             <ButtonComponent

@@ -4,3 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind screens;
+
+.inputfield {
+  @apply py-1 px-2 my-1 mr-5 bg-white dark:bg-black;
+}

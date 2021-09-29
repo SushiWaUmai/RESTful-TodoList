@@ -1,30 +1,34 @@
-import { ErrorMessage, Field } from "formik";
-import React, { FunctionComponent, InputHTMLAttributes } from "react";
+import { ErrorMessage, Field, FieldAttributes } from "formik";
+import React, {
+  FunctionComponent,
+  HTMLAttributes,
+  InputHTMLAttributes,
+} from "react";
 
-type InputFieldComponentProps = InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+type FieldInputProps = FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & {
   name: string;
-};
+}
+
+interface InputFieldComponentProps {
+  fieldProps: FieldInputProps; 
+  divProps?: HTMLAttributes<HTMLDivElement>;
+  label: string;
+}
 const InputFieldComponent: FunctionComponent<InputFieldComponentProps> = ({
-  placeholder,
+  fieldProps,
+  divProps,
   label,
-  name,
-  type,
-  className,
 }) => {
   return (
-    <div className={(className ? className + " " : "") + "my-5"}>
-      <label className="my-3" htmlFor={name}>
+    <div { ...divProps }>
+      <label className="my-3" htmlFor={fieldProps.name}>
         {label}
       </label>
       <br />
       <Field
-        className="py-1 px-2 my-1 mr-5 bg-white dark:bg-black"
-        placeholder={placeholder}
-        type={type}
-        name={name}
+        {...fieldProps}
       />
-      <ErrorMessage name={name}>
+      <ErrorMessage name={fieldProps.name}>
         {(msg) => <span className="text-red-500">{msg}</span>}
       </ErrorMessage>
     </div>

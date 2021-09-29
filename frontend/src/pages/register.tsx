@@ -86,27 +86,43 @@ export default function RegisterPage() {
         {({ isSubmitting }) => (
           <Form>
             <InputFieldComponent
-              type="text"
-              name="username"
-              placeholder="Username"
+              fieldProps={{
+                type: "text",
+                name: "username",
+                placeholder: "Username",
+                className: "inputfield"
+              }}
+              divProps={{ className: "my-5" }}
               label="Username"
             />
             <InputFieldComponent
-              type="email"
-              name="email"
-              placeholder="E-Mail"
+              fieldProps={{
+                type: "email",
+                name: "email",
+                placeholder: "E-Mail",
+                className: "inputfield"
+              }}
+              divProps={{ className: "my-5" }}
               label="E-Mail"
             />
             <InputFieldComponent
-              type="password"
-              name="password"
-              placeholder="Password"
+              fieldProps={{
+                type: "password",
+                name: "password",
+                placeholder: "Password",
+                className: "inputfield"
+              }}
+              divProps={{ className: "my-5" }}
               label="Password"
             />
             <InputFieldComponent
-              type="password"
-              name="repeatPassword"
-              placeholder="Repeat Password"
+              fieldProps={{
+                type: "password",
+                name: "repeatPassword",
+                placeholder: "Repeat Password",
+                className: "inputfield"
+              }}
+              divProps={{ className: "my-5" }}
               label="Repeat Password"
             />
             <ButtonComponent

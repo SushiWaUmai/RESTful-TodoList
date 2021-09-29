@@ -14,11 +14,13 @@ import { BsX } from "react-icons/bs";
 interface TodoItemModalProps {
   modalTitle: string;
   todoModal: ModalAttributes;
+  initialValues?: TodoItem;
 }
 
 const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
   todoModal,
   modalTitle,
+  initialValues,
 }) => {
   const router = useRouter();
 
@@ -39,40 +41,51 @@ const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
     }
   };
 
-  const initialValues: TodoItem = {
-    title: "",
-    description: "",
-  };
-
+  if (!initialValues) {
+    initialValues = {
+      title: "",
+      description: "",
+    };
+  }
   return (
     <ModalComponent handleClose={todoModal.close} modalOpen={todoModal.isOpen}>
-      <div className="m-3 flex flex-col justify-center">
+      <div className="flex flex-col justify-center">
         <div className="flex justify-between">
-          <h1 className="text-3xl m-2 p-3">{modalTitle}</h1>
+          <h1 className="lg:mr-64 text-3xl p-3">{modalTitle}</h1>
           <ButtonComponent onClick={todoModal.close}>
             <BsX size={48} />
           </ButtonComponent>
         </div>
         <hr />
-        <div className="flex justify-center">
-          <div className="m-5">
+        <div className="flex justify-start">
+          <div className="w-full h-full m-5">
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
               {({ isSubmitting }) => (
                 <>
                   <Form>
                     <InputFieldComponent
-                      type="text"
+                      fieldProps={{
+                        type: "text",
+                        name: "title",
+                        placeholder: "Title",
+                        className: "inputfield w-full",
+                      }}
+                      divProps={{ className: "my-5" }}
                       label="Title"
-                      name="title"
-                      placeholder="Title"
                     />
                     <InputFieldComponent
-                      type="text"
+                      fieldProps={{
+                        type: "text",
+                        name: "description",
+                        placeholder: "Description",
+                        className: "inputfield w-full resize-none",
+                        as: "textarea",
+                        rows: 5,
+                      }}
+                      divProps={{ className: "my-5" }}
                       label="Description"
-                      name="description"
-                      placeholder="Description"
                     />
-                    <div className="flex justify-between">
+                    <div className="flex justify-end">
                       <ButtonComponent
                         className="p-3 my-3 rounded bg-gradient-to-tr from-green-500 to-blue-400"
                         type="submit"
