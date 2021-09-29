@@ -8,7 +8,7 @@ import ButtonComponent from "../ButtonComponent";
 
 interface UserTabProps {
   user: UserNoPassword;
-  setUser: Dispatch<SetStateAction<UserNoPassword | undefined>> | undefined;
+  setUser: Dispatch<SetStateAction<UserNoPassword | undefined>>;
 }
 
 const UserTab: FunctionComponent<UserTabProps> = ({ user, setUser }) => {
@@ -25,7 +25,7 @@ const UserTab: FunctionComponent<UserTabProps> = ({ user, setUser }) => {
       console.error("Failed to log out");
     }
 
-    if (setUser) setUser(undefined);
+    setUser(undefined);
     router.push("/");
   };
 

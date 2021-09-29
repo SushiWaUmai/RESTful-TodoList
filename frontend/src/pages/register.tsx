@@ -41,7 +41,7 @@ export default function RegisterPage() {
       setSubmitting(false);
       router.push("/dashboard");
 
-      if (setUser) setUser(data.user);
+      setUser(data.user);
     }
   };
 
@@ -90,7 +90,7 @@ export default function RegisterPage() {
                 type: "text",
                 name: "username",
                 placeholder: "Username",
-                className: "inputfield"
+                className: "inputfield",
               }}
               divProps={{ className: "my-5" }}
               label="Username"
@@ -100,7 +100,7 @@ export default function RegisterPage() {
                 type: "email",
                 name: "email",
                 placeholder: "E-Mail",
-                className: "inputfield"
+                className: "inputfield",
               }}
               divProps={{ className: "my-5" }}
               label="E-Mail"
@@ -110,7 +110,7 @@ export default function RegisterPage() {
                 type: "password",
                 name: "password",
                 placeholder: "Password",
-                className: "inputfield"
+                className: "inputfield",
               }}
               divProps={{ className: "my-5" }}
               label="Password"
@@ -120,7 +120,7 @@ export default function RegisterPage() {
                 type: "password",
                 name: "repeatPassword",
                 placeholder: "Repeat Password",
-                className: "inputfield"
+                className: "inputfield",
               }}
               divProps={{ className: "my-5" }}
               label="Repeat Password"

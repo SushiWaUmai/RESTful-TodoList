@@ -29,7 +29,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
       setSubmitting(false);
       router.push("/dashboard");
 
-      if (setUser) setUser(data.user);
+      setUser(data.user);
     }
   };
 
@@ -52,7 +52,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                 type: "text",
                 name: "usernameOrEmail",
                 placeholder: "Username or Email",
-                className: "inputfield"
+                className: "inputfield",
               }}
               divProps={{ className: "my-5" }}
               label="Username or Email"
@@ -62,7 +62,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                 type: "password",
                 name: "password",
                 placeholder: "Password",
-                className: "inputfield"
+                className: "inputfield",
               }}
               divProps={{ className: "my-5" }}
               label="Password"

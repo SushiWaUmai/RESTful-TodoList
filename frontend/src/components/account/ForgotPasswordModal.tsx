@@ -11,12 +11,10 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = ({
 }) => {
   return (
     <ModalComponent
+      modalTitle="Forgot Password?"
       handleClose={forgotPasswordModal.close}
       modalOpen={forgotPasswordModal.isOpen}
-    >
-      <h1 className="text-3xl m-2 p-3">Forgot Password?</h1>
-      <hr />
-    </ModalComponent>
+    ></ModalComponent>
   );
 };
 

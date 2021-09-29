@@ -7,7 +7,7 @@ import { UserContext } from "./LayoutComponent";
 
 export default function NavbarComponent() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (innerWidth > 1024) {

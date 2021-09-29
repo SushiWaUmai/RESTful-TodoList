@@ -6,11 +6,14 @@ import { UserNoPassword, UserResponse } from "@shared/SharedTypes";
 import axios from "axios";
 
 interface UserContextProps {
-  user?: UserNoPassword;
-  setUser?: React.Dispatch<React.SetStateAction<UserNoPassword | undefined>>;
+  user: UserNoPassword | undefined;
+  setUser: React.Dispatch<React.SetStateAction<UserNoPassword | undefined>>;
 }
 
-export const UserContext = React.createContext<UserContextProps>({});
+export const UserContext = React.createContext<UserContextProps>({
+  user: { username: "", email: "", role: "UNAUTHORIZED", todoItems: [] },
+  setUser: () => {},
+});
 
 interface LayoutComponentProps {}
 

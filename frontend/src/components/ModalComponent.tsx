@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FunctionComponent } from "react";
+import { BsX } from "react-icons/bs";
 import ButtonComponent from "./ButtonComponent";
 
 const newspaper = {
@@ -28,11 +29,13 @@ const newspaper = {
 
 interface ModalComponentProps {
   modalOpen: boolean;
+  modalTitle: string;
   handleClose: () => void;
 }
 
 const ModalComponent: FunctionComponent<ModalComponentProps> = ({
   modalOpen,
+  modalTitle,
   handleClose,
   children,
 }) => {
@@ -56,7 +59,16 @@ const ModalComponent: FunctionComponent<ModalComponentProps> = ({
               animate="visible"
               exit="exit"
             >
-              {children}
+              <div className="flex flex-col justify-center">
+                <div className="flex justify-between">
+                  <h1 className="lg:mr-64 text-3xl p-3">{modalTitle}</h1>
+                  <ButtonComponent onClick={handleClose}>
+                    <BsX size={48} />
+                  </ButtonComponent>
+                </div>
+                <hr />
+                {children}
+              </div>
             </motion.div>
           </div>
         </>

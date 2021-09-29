@@ -1,4 +1,5 @@
 import argon2 from "argon2";
+import { TodoItemModel } from "@shared/entities/TodoItem";
 import { Router } from "express";
 import mongoose, { Document } from "mongoose";
 import { User, UserModel } from "@shared/entities/User";
@@ -151,6 +152,7 @@ userRouter.post("/login", async (req, res): Promise<void> => {
   // Save cookie
   req.session.userID = user._id.valueOf();
 
+  user.password = "";
   let result: UserResponse = {
     user,
   };
@@ -161,7 +163,7 @@ userRouter.post("/login", async (req, res): Promise<void> => {
 userRouter.post("/delete", async (req, res) => {
   const { username, password }: UserDeleteInput = req.body;
 
-  const user = UserModel.findOne({ username });
+  const user = await UserModel.findOne({ username }).exec();
 
   if (!user) {
     let result: GenericResponse = {
@@ -187,7 +189,20 @@ userRouter.post("/delete", async (req, res) => {
     return;
   }
 
+  await TodoItemModel.deleteMany({
+    _id: { $in: user.todoItems },
+  }).exec();
+
   await UserModel.deleteOne({ username });
+
+  req.session.destroy((err) => {
+    res.clearCookie(COOKIE_NAME);
+    let result: GenericResponse = {};
+    if (err) {
+      result.error = err;
+    }
+    res.json({ result });
+  });
 });
 
 userRouter.get("/logout", (req, res) => {
