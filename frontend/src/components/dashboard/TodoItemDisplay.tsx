@@ -1,5 +1,5 @@
 import { TodoItem } from "@shared/entities/TodoItem";
-import { HTMLMotionProps, motion } from "framer-motion";
+import { AnimatePresence, HTMLMotionProps, motion } from "framer-motion";
 import { FunctionComponent } from "react";
 import { BsCheck, BsCircle } from "react-icons/bs";
 
@@ -21,7 +21,9 @@ const TodoItemDisplay: FunctionComponent<TodoItemDisplayProps> = (props) => {
         <div className="flex justify-between">
           <div className="flex justify-center align-middle">
             <h1 className="text-3xl select-none">
-              <div className={todoItem.done ? "line-through text-gray-500" : ""}>
+              <div
+                className={todoItem.done ? "line-through text-gray-500" : ""}
+              >
                 <b>{todoItem.title}</b>
               </div>
             </h1>

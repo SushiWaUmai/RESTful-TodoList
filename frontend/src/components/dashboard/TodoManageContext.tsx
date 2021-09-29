@@ -16,6 +16,7 @@ import TodoItemModal from "./TodoItemModal";
 
 type TodoManageContextProps = HTMLAttributes<HTMLDivElement> & {
   showCompleted: boolean;
+  getTodos: () => Promise<void>;
   toogleShowCompleted: () => void;
 };
 
@@ -23,10 +24,8 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
   props
 ) => {
   const todoModal = useModal();
-  const router = useRouter();
 
-  const { showCompleted, toogleShowCompleted } = props;
-
+  const { showCompleted, getTodos, toogleShowCompleted, ...divProps } = props;
   const handleSubmit = async (
     values: TodoItem,
     { setErrors, setSubmitting }: FormikHelpers<TodoItem>
@@ -40,12 +39,12 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
       setErrors(toErrorMap(data.error));
     } else {
       setSubmitting(false);
-      router.push("/dashboard");
+      await getTodos();
     }
   };
 
   return (
-    <div {...props}>
+    <div {...divProps}>
       <ButtonComponent
         onClick={todoModal.open}
         className="m-5 p-4 rounded bg-gradient-to-br from-green-500 to-red-500"

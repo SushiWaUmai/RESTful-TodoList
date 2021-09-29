@@ -22,7 +22,6 @@ const LayoutComponent: FunctionComponent<LayoutComponentProps> = ({
 
   useEffect(() => {
     const getUser = async () => {
-      console.log("Update user");
       let data: UserResponse = (
         await axios.get("http://localhost:4000/user/me", {
           withCredentials: true,

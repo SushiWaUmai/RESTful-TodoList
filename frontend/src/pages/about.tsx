@@ -1,27 +1,27 @@
 import { FunctionComponent } from "react";
 import { motion, Variants } from "framer-motion";
 
+const listVariant: Variants = {
+  opened: {
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.25,
+    },
+  },
+};
+
+const itemVariant: Variants = {
+  opened: {
+    opacity: 1,
+  },
+  closed: {
+    opacity: 0,
+  },
+};
+
 interface AboutPageProps {}
 
 const AboutPage: FunctionComponent<AboutPageProps> = () => {
-  const listVariant: Variants = {
-    opened: {
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.25,
-      },
-    },
-  };
-
-  const itemVariant: Variants = {
-    opened: {
-      opacity: 1,
-    },
-    closed: {
-      opacity: 0,
-    },
-  };
-
   return (
     <div className="mx-auto">
       <div className="container p-5">

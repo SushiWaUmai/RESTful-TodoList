@@ -1,4 +1,14 @@
-import { FunctionComponent, useContext, useState } from "react";
+import { TodoItem } from "@shared/entities/TodoItem";
+import { UserTodoItemResponse } from "@shared/SharedTypes";
+import axios from "axios";
+import { useRouter } from "next/dist/client/router";
+import {
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import TodoListDisplay from "../components/dashboard/TodoListDisplay";
 import TodoManageContext from "../components/dashboard/TodoManageContext";
 import { UserContext } from "../components/LayoutComponent";
@@ -7,6 +17,25 @@ interface DashboardPageProps {}
 const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
   const { user, setUser } = useContext(UserContext);
   const [showCompleted, setShowCompleted] = useState(false);
+  const [todos, setTodos] = useState<TodoItem[]>([]);
+  const router = useRouter();
+
+  const getTodos = useCallback(async () => {
+    let data: UserTodoItemResponse = (
+      await axios.get("http://localhost:4000/todos", {
+        withCredentials: true,
+      })
+    )?.data;
+    if (!data?.error && data.todos) {
+      setTodos(data.todos);
+    } else {
+      router.push("/login");
+    }
+  }, [router]);
+
+  useEffect(() => {
+    getTodos();
+  }, [getTodos]);
 
   return (
     <div className="flex justify-center">
@@ -20,12 +49,15 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
               <div className="flex justify-center">
                 <TodoManageContext
                   showCompleted={showCompleted}
+                  getTodos={getTodos}
                   toogleShowCompleted={() => {
                     setShowCompleted(!showCompleted);
                   }}
                 />
               </div>
               <TodoListDisplay
+                todos={todos}
+                getTodos={getTodos}
                 showCompleted={showCompleted}
                 className="flex-grow"
               />
