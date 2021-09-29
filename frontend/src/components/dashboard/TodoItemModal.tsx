@@ -1,11 +1,7 @@
 import { TodoItem } from "@shared/entities/TodoItem";
-import { TodoItemResponse } from "@shared/SharedTypes";
-import axios from "axios";
 import { Form, Formik, FormikHelpers } from "formik";
-import { useRouter } from "next/dist/client/router";
 import { FunctionComponent } from "react";
 import { ModalAttributes } from "../../hooks/useModal";
-import { toErrorMap } from "../../utils/ToErrorMap";
 import ButtonComponent from "../ButtonComponent";
 import InputFieldComponent from "../InputFieldComponent";
 import ModalComponent from "../ModalComponent";
@@ -16,37 +12,24 @@ interface TodoItemModalProps {
   buttonLabel: string;
   todoModal: ModalAttributes;
   initialValues?: TodoItem;
+  onSubmit: (
+    values: TodoItem,
+    { setErrors, setSubmitting }: FormikHelpers<TodoItem>
+  ) => any;
 }
 
 const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
   todoModal,
   modalTitle,
+  onSubmit,
   buttonLabel,
   initialValues,
 }) => {
-  const router = useRouter();
-
-  const handleSubmit = async (
-    values: TodoItem,
-    { setErrors, setSubmitting }: FormikHelpers<TodoItem>
-  ) => {
-    let data: TodoItemResponse = await (
-      await axios.post("http://localhost:4000/todos/", values, {
-        withCredentials: true,
-      })
-    )?.data;
-    if (data?.error) {
-      setErrors(toErrorMap(data.error));
-    } else {
-      setSubmitting(false);
-      router.push("/dashboard");
-    }
-  };
-
   if (!initialValues) {
     initialValues = {
       title: "",
       description: "",
+      done: false,
     };
   }
   return (
@@ -61,7 +44,7 @@ const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
         <hr />
         <div className="flex justify-start">
           <div className="w-full h-full m-5">
-            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            <Formik initialValues={initialValues} onSubmit={onSubmit}>
               {({ isSubmitting }) => (
                 <>
                   <Form>

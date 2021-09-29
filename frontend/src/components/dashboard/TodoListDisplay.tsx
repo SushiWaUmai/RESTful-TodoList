@@ -1,14 +1,19 @@
-import { UserTodoItemResponse } from "@shared/SharedTypes";
+import {
+  GenericResponse,
+  TodoItemResponse,
+  UserTodoItemResponse,
+} from "@shared/SharedTypes";
 import { FunctionComponent, HTMLAttributes, useEffect, useState } from "react";
 import axios from "axios";
 import { TodoItem } from "@shared/entities/TodoItem";
-import { motion } from "framer-motion";
 import { useRouter } from "next/dist/client/router";
 import TodoItemDisplay from "./TodoItemDisplay";
 import useModal from "../../hooks/useModal";
 import TodoItemModal from "./TodoItemModal";
 
-type TodoListDisplayProps = HTMLAttributes<HTMLDivElement>;
+type TodoListDisplayProps = HTMLAttributes<HTMLDivElement> & {
+  showCompleted: boolean;
+};
 
 const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -16,9 +21,28 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
   const todoModal = useModal();
   const router = useRouter();
 
-  const handleEdit = (todoItem: TodoItem) => {
+  const { showCompleted } = props;
+
+  const handleEdit = async (val: TodoItem) => {
+    console.log(val);
+    let data: GenericResponse = await (
+      await axios.put("http://localhost:4000/todos/", val, {
+        withCredentials: true,
+      })
+    )?.data;
+    if (!data?.error) {
+      router.push("/dashboard");
+    }
+  };
+
+  const openEditModal = (todoItem: TodoItem) => {
     setSelected(todoItem);
     todoModal.open();
+  };
+
+  const handleToogleCheck = (todoItem: TodoItem) => {
+    todoItem.done = !todoItem.done;
+    handleEdit(todoItem);
   };
 
   useEffect(() => {
@@ -41,13 +65,17 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
   if (todos.length > 0) {
     todoMap = todos
       .map((todo, i) => {
-        return (
-          <TodoItemDisplay
-            key={i}
-            todoItem={todo}
-            onDoubleClick={() => handleEdit(todo)}
-          />
-        );
+        if (showCompleted || !todo.done) {
+          return (
+            <TodoItemDisplay
+              key={i}
+              todoItem={todo}
+              handleEdit={() => openEditModal(todo)}
+              toogleCheck={() => handleToogleCheck(todo)}
+            />
+          );
+        }
+        return null;
       })
       .reduce((prev, current) => {
         return (
@@ -68,6 +96,7 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
           buttonLabel="Edit Todo"
           initialValues={selected}
           todoModal={todoModal}
+          onSubmit={handleEdit}
         />
       </div>
     </div>

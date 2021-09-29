@@ -34,6 +34,6 @@ export interface UserDeleteInput {
   password: string;
 }
 
-export interface SuccessResponse {
+export interface GenericResponse {
   error?: Error;
 }

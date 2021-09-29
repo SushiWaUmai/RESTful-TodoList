@@ -1,7 +1,11 @@
 import { Router } from "express";
-import { TodoItemModel } from "@shared/entities/TodoItem";
+import { TodoItem, TodoItemModel } from "@shared/entities/TodoItem";
 import { getUser } from "./UserRouter";
-import { TodoItemResponse, UserTodoItemResponse } from "@shared/SharedTypes";
+import {
+  TodoItemResponse,
+  UserTodoItemResponse,
+  GenericResponse,
+} from "@shared/SharedTypes";
 
 export const todoItemRouter = Router();
 
@@ -35,13 +39,22 @@ todoItemRouter.post("/", async (req, res) => {
 
   const { title, description } = req.body;
 
-  const item = await TodoItemModel.create({ title, description });
+  const item = await TodoItemModel.create({ title, description, done: false });
   await item.save();
 
   owner.todoItems.push(item);
   await owner.save();
 
   let result: TodoItemResponse = { todo: item };
+  res.json(result);
+});
+
+todoItemRouter.put("/", async (req, res) => {
+  const todoItem: TodoItem = req.body;
+
+  await TodoItemModel.findOneAndUpdate({ _id: req.body._id }, todoItem);
+
+  let result: GenericResponse = {};
   res.json(result);
 });
 

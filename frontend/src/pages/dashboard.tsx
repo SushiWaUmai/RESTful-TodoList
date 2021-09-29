@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent, useContext, useState } from "react";
 import TodoListDisplay from "../components/dashboard/TodoListDisplay";
 import TodoManageContext from "../components/dashboard/TodoManageContext";
 import { UserContext } from "../components/LayoutComponent";
@@ -6,6 +6,7 @@ interface DashboardPageProps {}
 
 const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
   const { user, setUser } = useContext(UserContext);
+  const [showCompleted, setShowCompleted] = useState(false);
 
   return (
     <div className="flex justify-center">
@@ -17,9 +18,17 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
             <br />
             <div className="flex flex-col lg:flex-row justify-between">
               <div className="flex justify-center">
-                <TodoManageContext />
+                <TodoManageContext
+                  showCompleted={showCompleted}
+                  toogleShowCompleted={() => {
+                    setShowCompleted(!showCompleted);
+                  }}
+                />
               </div>
-              <TodoListDisplay className="flex-grow" />
+              <TodoListDisplay
+                showCompleted={showCompleted}
+                className="flex-grow"
+              />
             </div>
           </div>
         ) : (

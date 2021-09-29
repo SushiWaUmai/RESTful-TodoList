@@ -3,7 +3,7 @@ import { Router } from "express";
 import mongoose, { Document } from "mongoose";
 import { User, UserModel } from "@shared/entities/User";
 import {
-  SuccessResponse,
+  GenericResponse,
   UserDeleteInput,
   UserLoginInput,
   UserRegisterInput,
@@ -164,7 +164,7 @@ userRouter.post("/delete", async (req, res) => {
   const user = UserModel.findOne({ username });
 
   if (!user) {
-    let result: SuccessResponse = {
+    let result: GenericResponse = {
       error: {
         name: "user",
         message: "User not found",
@@ -176,7 +176,7 @@ userRouter.post("/delete", async (req, res) => {
 
   let valid = await argon2.verify(user.password, password);
   if (!valid) {
-    let result: SuccessResponse = {
+    let result: GenericResponse = {
       error: {
         name: "password",
         message: "incorrect password",
@@ -193,7 +193,7 @@ userRouter.post("/delete", async (req, res) => {
 userRouter.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     res.clearCookie(COOKIE_NAME);
-    let result: SuccessResponse = {};
+    let result: GenericResponse = {};
     if (err) {
       result.error = err;
     }
