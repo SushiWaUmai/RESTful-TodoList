@@ -18,7 +18,7 @@ import {
   IObjectWithTypegooseFunction,
 } from "@typegoose/typegoose/lib/types";
 import { makeID } from "src/utils/MakeID";
-import { mailUser } from "src/utils/MailFactory";
+import { sendVerificationMail } from "src/utils/MailFactory";
 
 export const userRouter = Router();
 
@@ -83,7 +83,7 @@ userRouter.post("/register", async (req, res): Promise<void> => {
     // Save cookie
     req.session.userID = user._id.valueOf();
 
-    mailUser(user);
+    sendVerificationMail(user);
 
     res.json({ user });
   } catch (error) {
