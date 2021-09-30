@@ -17,7 +17,7 @@ export class User extends TimeStamps {
   email: string;
 
   @prop()
-  role: "UNAUTHORIZED" | "USER" | "ADMIN";
+  role: string;
 
   @prop()
   password: string;

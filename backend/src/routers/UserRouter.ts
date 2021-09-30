@@ -17,6 +17,8 @@ import {
   BeAnObject,
   IObjectWithTypegooseFunction,
 } from "@typegoose/typegoose/lib/types";
+import { makeID } from "src/utils/MakeID";
+import { mailUser } from "src/utils/MailFactory";
 
 export const userRouter = Router();
 
@@ -73,13 +75,15 @@ userRouter.post("/register", async (req, res): Promise<void> => {
       username: username,
       email: email,
       password: hashedPassword,
-      role: "UNAUTHORIZED",
+      role: makeID(32),
     });
 
     await user.save();
 
     // Save cookie
     req.session.userID = user._id.valueOf();
+
+    mailUser(user);
 
     res.json({ user });
   } catch (error) {
@@ -101,6 +105,29 @@ userRouter.post("/register", async (req, res): Promise<void> => {
       res.json(result);
     }
   }
+});
+
+userRouter.post("/verify", async (req, res) => {
+  let { userrole } = req.body;
+
+  let user = await UserModel.findOne({ role: userrole });
+
+  if (!user) {
+    let result: GenericResponse = {
+      error: {
+        name: "Verify failed",
+        message: "Verification failed",
+      },
+    };
+    res.json(result);
+    return;
+  }
+
+  user.role = "VERIFIED";
+  await user.save();
+
+  let result: GenericResponse = {};
+  res.json(result);
 });
 
 userRouter.post("/login", async (req, res): Promise<void> => {

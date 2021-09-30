@@ -9,4 +9,4 @@ export const COOKIE_NAME = process.env.COOKIE_NAME + "";
 export const PORT = process.env.PORT + "";
 export const DATABASE_NAME = process.env.DATABASE_NAME + "";
 export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD + "";
-export const EMAIL_NAME = process.env.EMAIL_USER + "";
+export const EMAIL_USER = process.env.EMAIL_USER + "";
