@@ -7,7 +7,8 @@
     "clean": "rimraf dist",
     "watch": "yarn clean && tsc -w",
     "dev": "nodemon dist/backend/src",
-    "build": "yarn clean && tsc && node dist/backend/src"
+    "start": "node dist/backend/src",
+    "build": "yarn clean && tsc && yarn start"
   },
   "keywords": [],
   "author": "Eugene Matsumura",
@@ -21,11 +22,13 @@
     "argon2": "^0.28.2",
     "connect-mongo": "^4.6.0",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "module-alias": "^2.2.2",
     "mongoose": "^6.0.7",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.6.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -33,6 +36,7 @@
     "@types/express-session": "^1.17.4",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.9.6",
+    "@types/nodemailer": "^6.4.4",
     "nodemon": "^2.0.12",
     "rimraf": "^3.0.2",
     "ts-node": "^10.2.1",

@@ -1,5 +1,12 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export const __prod__ = process.env.NODE_ENV === "production";
-export const MONGO_URI = "mongodb://localhost:27017";
-export const SESSION_SECRET = "Test";
-export const COOKIE_NAME = "RESTfulCookie";
-  
+export const MONGO_URI = process.env.MONGO_URI + "";
+export const SESSION_SECRET = process.env.SESSION_SECRET + "";
+export const COOKIE_NAME = process.env.COOKIE_NAME + "";
+export const PORT = process.env.PORT + "";
+export const DATABASE_NAME = process.env.DATABASE_NAME + "";
+export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD + "";
+export const EMAIL_NAME = process.env.EMAIL_USER + "";

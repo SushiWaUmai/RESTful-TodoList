@@ -6,15 +6,14 @@ import { userRouter } from "./routers/UserRouter";
 import { todoItemRouter } from "./routers/TodoItemRouter";
 import session from "express-session";
 import { mongoose } from "@typegoose/typegoose";
-import { COOKIE_NAME, MONGO_URI, SESSION_SECRET, __prod__ } from "./Constants";
+import { COOKIE_NAME, DATABASE_NAME, MONGO_URI, PORT, SESSION_SECRET, __prod__ } from "./Constants";
 import MongoStore from "connect-mongo";
 
 async function main() {
   console.log("Starting Server...");
-  const PORT = 4000;
   const app = express();
 
-  mongoose.connect(MONGO_URI + "/RESTful-todolist", () =>
+  mongoose.connect(MONGO_URI + "/" + DATABASE_NAME, () =>
     console.log("MongoDB connected")
   );
 
