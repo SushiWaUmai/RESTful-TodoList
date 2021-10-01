@@ -6,9 +6,12 @@
     <title>Test</title>
   </head>
   <body>
-    <h1>
+    <h1 class="text-3xl">
       Hello
-      {{user.username}}!
+      {{ user.username }}!
     </h1>
+    <button class="p-3 bg-gradient-to-tr from-yellow-400 to-red-500">
+        Verify
+    </button>
   </body>
 </html>
