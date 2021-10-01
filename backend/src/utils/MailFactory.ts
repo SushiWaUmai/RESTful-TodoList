@@ -32,7 +32,7 @@ export const sendVerificationMail = async (user: User) => {
   var mailOptions: Mail.Options = {
     from: EMAIL_USER,
     to: email,
-    subject: "Test",
+    subject: `Hello ${user.username}, please verify your email adress`,
     html: template.render({ user }),
   };
 

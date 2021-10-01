@@ -110,13 +110,40 @@ userRouter.post("/register", async (req, res): Promise<void> => {
 userRouter.post("/verify", async (req, res) => {
   let { userrole } = req.body;
 
-  let user = await UserModel.findOne({ role: userrole });
+  var user:
+    | (Document<any, BeAnObject, any> &
+        User &
+        IObjectWithTypegooseFunction & { _id: any })
+    | null = null;
+
+  if (req.session.userID) user = await getUser(req.session.userID);
+  else user = await UserModel.findOne({ role: userrole });
 
   if (!user) {
     let result: GenericResponse = {
       error: {
-        name: "Verify failed",
-        message: "Verification failed",
+        name: "User Verification failed",
+        message: "Could not find user.",
+      },
+    };
+    res.json(result);
+    return;
+  }
+  if (user.role === "VERIFIED") {
+    let result: GenericResponse = {
+      error: {
+        name: "User already verified",
+        message: "This user was already verified.",
+      },
+    };
+    res.json(result);
+    return;
+  }
+  if (user.role !== userrole) {
+    let result: GenericResponse = {
+      error: {
+        name: "User Verification failed",
+        message: "Could not verify user",
       },
     };
     res.json(result);

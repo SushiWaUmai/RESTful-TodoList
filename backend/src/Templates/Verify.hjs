@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test</title>
   </head>
-  <body class="bg-gray-600 text-white">
+  <body>
     <center class="w-full text-center">
       <h1 class="text-3xl">
         Hello
         {{user.username}}!
       </h1>
-      <span class="m-3 p-3 text-xl bg-black ">
-        <button>
-          <a href="http://localhost:3000/verify?userrole={{user.role}}">
+      <p>Hi
+        {{user.username}}, you are almost done! We must have to make sure that
+        the email
+        {{user.email}}
+        is yours.</p>
+      <span class="m-3 p-3 text-xl">
+        <a href="http://localhost:3000/verify?userrole={{user.role}}">
+          <font color="blue">
             Verify your Account
-          </a>
-        </button>
+          </font>
+        </a>
       </span>
 
     </center>
