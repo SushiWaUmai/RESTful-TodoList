@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test</title>
   </head>
-  <body>
-    <h1 class="text-3xl">
-      Hello
-      {{ user.username }}!
-    </h1>
-    <button class="p-3 bg-gradient-to-tr from-yellow-400 to-red-500">
-        Verify
-    </button>
+  <body class="bg-gray-600 text-white">
+    <center class="w-full text-center">
+      <h1 class="text-3xl">
+        Hello
+        {{user.username}}!
+      </h1>
+      <span class="m-3 p-3 text-xl bg-black ">
+        <button>
+          <a href="http://localhost:3000/verify?userrole={{user.role}}">
+            Verify your Account
+          </a>
+        </button>
+      </span>
+
+    </center>
   </body>
 </html>
