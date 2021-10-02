@@ -1,11 +1,8 @@
 import { TodoItem } from "@shared/entities/TodoItem";
-import { TodoItemResponse } from "@shared/SharedTypes";
+import { GenericResponse, TodoItemResponse } from "@shared/SharedTypes";
 import axios from "axios";
 import { FormikHelpers } from "formik";
-import {
-  FunctionComponent,
-  HTMLAttributes,
-} from "react";
+import { FunctionComponent, HTMLAttributes } from "react";
 import useModal from "../../hooks/useModal";
 import { toErrorMap } from "../../utils/ToErrorMap";
 import ButtonComponent from "../ButtonComponent";
@@ -27,7 +24,6 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
     values: TodoItem,
     { setErrors, setSubmitting }: FormikHelpers<TodoItem>
   ) => {
-    console.log(values);
     let data: TodoItemResponse = await (
       await axios.post("http://localhost:4000/todos/", values, {
         withCredentials: true,
@@ -41,7 +37,19 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
     }
   };
 
-  // TODO: Delete all completed tasks with a button
+  const handleDeleteAll = async () => {
+    let data: GenericResponse = await (
+      await axios.delete("http://localhost:4000/todos/deleteAll/", {
+        withCredentials: true,
+      })
+    )?.data;
+    if (data?.error) {
+      console.log(data.error);
+    } else {
+      await getTodos();
+    }
+  };
+
   return (
     <div {...divProps}>
       <ButtonComponent
@@ -66,6 +74,14 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
           Show Completed
         </ButtonComponent>
       )}
+
+      <ButtonComponent
+        onClick={handleDeleteAll}
+        className="m-5 p-4 rounded bg-gradient-to-tr from-purple-800 to-red-500"
+      >
+        Delete Completed 
+      </ButtonComponent>
+
       <TodoItemModal
         modalTitle="Create TodoItem"
         buttonLabel="Create Todo"

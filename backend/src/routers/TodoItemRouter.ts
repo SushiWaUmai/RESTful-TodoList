@@ -58,6 +58,39 @@ todoItemRouter.put("/", async (req, res) => {
   res.json(result);
 });
 
+todoItemRouter.delete("/deleteAll", async (req, res) => {
+  if (!req.session.userID) {
+    let result: GenericResponse = {
+      error: {
+        name: "user session",
+        message: "you must be logged in to get a todo item",
+      },
+    };
+    res.json(result);
+    return;
+  }
+
+  const user = await getUser(req.session.userID);
+  if (!user) {
+    let result: GenericResponse = {
+      error: {
+        name: "user",
+        message: "session user does not exist",
+      },
+    };
+    res.json(result);
+    return;
+  }
+
+  await TodoItemModel.deleteMany({
+    _id: { $in: user.todoItems },
+    done: true,
+  });
+
+  let result: GenericResponse = {};
+  res.json(result);
+});
+
 todoItemRouter.get("/", async (req, res) => {
   if (!req.session.userID) {
     let result: TodoItemResponse = {

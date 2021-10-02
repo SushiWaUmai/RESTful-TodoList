@@ -5,7 +5,6 @@ import { ModalAttributes } from "../../hooks/useModal";
 import ButtonComponent from "../ButtonComponent";
 import InputFieldComponent from "../InputFieldComponent";
 import ModalComponent from "../ModalComponent";
-import { BsX } from "react-icons/bs";
 import DatePickerComponent from "../DatePickerComponent";
 
 interface TodoItemModalProps {
