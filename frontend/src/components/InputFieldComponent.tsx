@@ -14,6 +14,7 @@ interface InputFieldComponentProps {
   divProps?: HTMLAttributes<HTMLDivElement>;
   label: string;
 }
+
 const InputFieldComponent: FunctionComponent<InputFieldComponentProps> = ({
   fieldProps,
   divProps,

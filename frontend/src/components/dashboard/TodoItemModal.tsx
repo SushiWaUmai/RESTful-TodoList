@@ -1,11 +1,12 @@
 import { TodoItem } from "@shared/entities/TodoItem";
-import { Form, Formik, FormikHelpers } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import { FunctionComponent } from "react";
 import { ModalAttributes } from "../../hooks/useModal";
 import ButtonComponent from "../ButtonComponent";
 import InputFieldComponent from "../InputFieldComponent";
 import ModalComponent from "../ModalComponent";
 import { BsX } from "react-icons/bs";
+import DatePickerComponent from "../DatePickerComponent";
 
 interface TodoItemModalProps {
   modalTitle: string;
@@ -30,6 +31,7 @@ const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
       title: "",
       description: "",
       done: false,
+      dueDate: new Date(),
     };
   }
   return (
@@ -64,6 +66,15 @@ const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
                   }}
                   divProps={{ className: "my-5" }}
                   label="Description"
+                />
+                <DatePickerComponent
+                  fieldProps={{
+                    name: "dueDate",
+                    placeholder: "Due Date",
+                    className: "inputfield w-full resize-none",
+                  }}
+                  divProps={{ className: "my-5" }}
+                  label="Due Date"
                 />
                 <div className="flex justify-end">
                   <ButtonComponent

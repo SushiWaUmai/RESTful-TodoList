@@ -27,6 +27,7 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
     values: TodoItem,
     { setErrors, setSubmitting }: FormikHelpers<TodoItem>
   ) => {
+    console.log(values);
     let data: TodoItemResponse = await (
       await axios.post("http://localhost:4000/todos/", values, {
         withCredentials: true,
@@ -49,7 +50,6 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
       >
         Create Todo
       </ButtonComponent>
-      <br />
 
       {showCompleted ? (
         <ButtonComponent

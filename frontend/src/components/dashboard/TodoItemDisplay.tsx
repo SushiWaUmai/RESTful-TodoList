@@ -20,7 +20,7 @@ const TodoItemDisplay: FunctionComponent<TodoItemDisplayProps> = (props) => {
       >
         <div className="flex justify-between">
           <div className="flex justify-center align-middle">
-            <h1 className="text-3xl select-none">
+            <h1 className="text-2xl lg:text-3xl select-none">
               <div
                 className={todoItem.done ? "line-through text-gray-500" : ""}
               >

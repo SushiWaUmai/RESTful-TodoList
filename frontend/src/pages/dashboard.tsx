@@ -48,6 +48,7 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
             <div className="flex flex-col lg:flex-row justify-between">
               <div className="flex justify-center">
                 <TodoManageContext
+                className="flex flex-col"
                   showCompleted={showCompleted}
                   getTodos={getTodos}
                   toogleShowCompleted={() => {
