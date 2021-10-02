@@ -113,7 +113,7 @@ userRouter.post("/verify", async (req, res) => {
   var user:
     | (Document<any, BeAnObject, any> &
         User &
-        IObjectWithTypegooseFunction & { _id: any })
+        IObjectWithTypegooseFunction)
     | null = null;
 
   if (req.session.userID) user = await getUser(req.session.userID);
@@ -163,7 +163,7 @@ userRouter.post("/login", async (req, res): Promise<void> => {
   let user:
     | (Document<any, BeAnObject, any> &
         User &
-        IObjectWithTypegooseFunction & { _id: any })
+        IObjectWithTypegooseFunction)
     | null = null;
 
   if (IsEmail(usernameOrEmail)) {

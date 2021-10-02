@@ -1,8 +1,8 @@
-import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
+import { getModelForClass, mongoose, prop, Ref } from "@typegoose/typegoose";
 import { TimeStamps } from "@typegoose/typegoose/lib/defaultClasses";
 import { TodoItem } from "./TodoItem";
 
-export class User extends TimeStamps {
+class SavedUser extends TimeStamps {
   @prop({
     unique: true,
     validate: (val: string) => val.toLowerCase(),
@@ -26,4 +26,8 @@ export class User extends TimeStamps {
   todoItems: Ref<TodoItem>[];
 }
 
-export const UserModel = getModelForClass(User);
+export type User = SavedUser & {
+  _id: mongoose.Types.ObjectId;
+}
+
+export const UserModel = getModelForClass(SavedUser);

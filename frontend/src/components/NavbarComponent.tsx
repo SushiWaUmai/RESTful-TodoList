@@ -82,7 +82,7 @@ export default function NavbarComponent() {
                       variants={linkVariants}
                     >
                       <ButtonComponent>
-                        <Link href="/account/dashboard">Dashboard</Link>
+                        <Link href="/dashboard">Dashboard</Link>
                       </ButtonComponent>
                     </motion.li>
                   </>
