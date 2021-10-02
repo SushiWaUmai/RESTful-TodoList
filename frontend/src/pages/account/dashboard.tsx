@@ -9,10 +9,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import TodoListDisplay from "../components/dashboard/TodoListDisplay";
-import TodoManageContext from "../components/dashboard/TodoManageContext";
-import TodoSortListbox from "../components/dashboard/TodoSortListbox";
-import { UserContext } from "../components/LayoutComponent";
+import TodoListDisplay from "../../components/dashboard/TodoListDisplay";
+import TodoManageContext from "../../components/dashboard/TodoManageContext";
+import { UserContext } from "../../components/LayoutComponent";
 interface DashboardPageProps {}
 
 export const SortTypeOptions = ["Date", "Title"] as const;

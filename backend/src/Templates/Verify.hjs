@@ -17,7 +17,7 @@
         {{user.email}}
         is yours.</p>
       <span class="m-3 p-3 text-xl">
-        <a href="http://localhost:3000/verify?userrole={{user.role}}">
+        <a href="http://localhost:3000/account/verify?userrole={{user.role}}">
           <font color="blue">
             Verify your Account
           </font>

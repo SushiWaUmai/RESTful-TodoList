@@ -3,10 +3,10 @@ import axios from "axios";
 import { Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/dist/client/router";
 import { FunctionComponent, useContext } from "react";
-import ButtonComponent from "../components/ButtonComponent";
-import InputFieldComponent from "../components/InputFieldComponent";
-import { UserContext } from "../components/LayoutComponent";
-import { toErrorMap } from "../utils/ToErrorMap";
+import ButtonComponent from "../../components/ButtonComponent";
+import InputFieldComponent from "../../components/InputFieldComponent";
+import { UserContext } from "../../components/LayoutComponent";
+import { toErrorMap } from "../../utils/ToErrorMap";
 
 interface LoginPageProps {}
 
@@ -27,7 +27,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
       setErrors(toErrorMap(data.error));
     } else {
       setSubmitting(false);
-      router.push("/dashboard");
+      router.push("/account/dashboard");
 
       setUser(data.user);
     }

@@ -2,11 +2,11 @@ import axios from "axios";
 import { Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/dist/client/router";
 import React, { useContext } from "react";
-import InputFieldComponent from "../components/InputFieldComponent";
-import { toErrorMap } from "../utils/ToErrorMap";
-import ButtonComponent from "../components/ButtonComponent";
+import InputFieldComponent from "../../components/InputFieldComponent";
+import { toErrorMap } from "../../utils/ToErrorMap";
+import ButtonComponent from "../../components/ButtonComponent";
 import { UserRegisterInput, UserResponse } from "@shared/SharedTypes";
-import { UserContext } from "../components/LayoutComponent";
+import { UserContext } from "../../components/LayoutComponent";
 
 // TODO: figure out how to import with alias
 // import { MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "@shared/Constants";
@@ -14,8 +14,8 @@ import { UserContext } from "../components/LayoutComponent";
 import {
   MIN_PASSWORD_LENGTH,
   MIN_USERNAME_LENGTH,
-} from "../../../shared/src/Constants";
-import { IsEmail } from "../../../shared/src/utils/CheckEmail";
+} from "../../../../shared/src/Constants";
+import { IsEmail } from "../../../../shared/src/utils/CheckEmail";
 
 type OptionalUsernamePasswordRepeatInput = Partial<UsernamePasswordRepeatInput>;
 
@@ -39,7 +39,7 @@ export default function RegisterPage() {
       setErrors(toErrorMap(data.error));
     } else {
       setSubmitting(false);
-      router.push("/dashboard");
+      router.push("/account/dashboard");
 
       setUser(data.user);
     }

@@ -13,7 +13,7 @@ import { motion, Variants } from "framer-motion";
 import TodoItemDisplay from "./TodoItemDisplay";
 import useModal from "../../hooks/useModal";
 import TodoItemModal from "./TodoItemModal";
-import { SortType } from "../../pages/dashboard";
+import { SortType } from "../../pages/account/dashboard";
 
 const listVariant: Variants = {
   opened: {

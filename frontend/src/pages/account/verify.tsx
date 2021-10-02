@@ -2,7 +2,7 @@ import { GenericResponse } from "@shared/SharedTypes";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { FunctionComponent, useEffect, useState } from "react";
-import ButtonComponent from "../components/ButtonComponent";
+import ButtonComponent from "../../components/ButtonComponent";
 
 interface UserRolePageProps {}
 

@@ -1,9 +1,9 @@
 import { FunctionComponent, useContext } from "react";
 import { Tab } from "@headlessui/react";
-import ButtonComponent from "../components/ButtonComponent";
-import { UserContext } from "../components/LayoutComponent";
-import SettingsTab from "../components/account/SettingsTab";
-import UserTab from "../components/account/UserTab";
+import ButtonComponent from "../../components/ButtonComponent";
+import { UserContext } from "../../components/LayoutComponent";
+import SettingsTab from "../../components/account/SettingsTab";
+import UserTab from "../../components/account/UserTab";
 
 interface AccountPageProps {}
 

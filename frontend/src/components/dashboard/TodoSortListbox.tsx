@@ -5,8 +5,8 @@ import {
   SetStateAction,
 } from "react";
 import { Listbox } from "@headlessui/react";
-import { SortType, SortTypeOptions } from "../../pages/dashboard";
 import { BsCheck } from "react-icons/bs";
+import { SortType, SortTypeOptions } from "../../pages/account/dashboard";
 
 type TodoSortListboxProps = HTMLAttributes<HTMLDivElement> & {
   selectedSort: SortType;
