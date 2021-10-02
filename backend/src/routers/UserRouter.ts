@@ -17,7 +17,7 @@ import {
   BeAnObject,
   IObjectWithTypegooseFunction,
 } from "@typegoose/typegoose/lib/types";
-import { makeID } from "src/utils/MakeID";
+import { v4 } from "uuid";
 import { sendVerificationMail } from "src/utils/MailFactory";
 
 export const userRouter = Router();
@@ -75,7 +75,7 @@ userRouter.post("/register", async (req, res): Promise<void> => {
       username: username,
       email: email,
       password: hashedPassword,
-      role: makeID(32),
+      role: v4(),
     });
 
     await user.save();
