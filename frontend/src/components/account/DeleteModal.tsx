@@ -17,8 +17,7 @@ const DeleteModal: FunctionComponent<DeleteModalProps> = ({ deleteModal }) => {
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
 
-  const handleSubmit = async (val: { password: string }) => {
-    console.log(user);
+  const handleDelete = async (val: { password: string }) => {
     if (!user) return;
 
     const reqBody: UserDeleteInput = {
@@ -46,7 +45,7 @@ const DeleteModal: FunctionComponent<DeleteModalProps> = ({ deleteModal }) => {
       handleClose={deleteModal.close}
       modalOpen={deleteModal.isOpen}
     >
-      <Formik onSubmit={handleSubmit} initialValues={{ password: "" }}>
+      <Formik onSubmit={handleDelete} initialValues={{ password: "" }}>
         <Form>
           <InputFieldComponent
             fieldProps={{

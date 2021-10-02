@@ -11,7 +11,7 @@ interface UserContextProps {
 }
 
 export const UserContext = React.createContext<UserContextProps>({
-  user: { username: "", email: "", role: "UNAUTHORIZED", todoItems: [] },
+  user: { username: "", email: "", role: "UNVERIFIED", todoItems: [] },
   setUser: () => {},
 });
 

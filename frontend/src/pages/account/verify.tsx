@@ -14,14 +14,14 @@ const UserRolePage: FunctionComponent<UserRolePageProps> = () => {
   useEffect(() => {
     const verify = async () => {
       let query = router.query;
-      let userrole = query.userrole;
+      let uuid = query.uuid;
 
-      if (!userrole) return;
+      if (!uuid) return;
 
       let data: GenericResponse = await (
         await axios.post(
           "http://localhost:4000/user/verify",
-          { userrole },
+          { uuid },
           {
             withCredentials: true,
           }
@@ -47,7 +47,7 @@ const UserRolePage: FunctionComponent<UserRolePageProps> = () => {
         <br />
         <ButtonComponent
           onClick={() => {
-            router.push(verified ? "/dashboard" : "/");
+            router.push(verified ? "/account/dashboard" : "/");
           }}
           className="p-3 rounded bg-gradient-to-br from-yellow-400 to-red-500"
         >

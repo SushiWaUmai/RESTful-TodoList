@@ -6,39 +6,70 @@ import { EMAIL_PASSWORD, EMAIL_USER } from "src/constants";
 import hogan from "hogan.js";
 import path from "path";
 import juice from "juice";
+import { Verification } from "@shared/entities/Verification";
 
-let htmlData = readFileSync(
-  path.join(__dirname, "/../templates/Verify.hjs"),
-  "utf-8"
-);
-let cssData = readFileSync(
-  path.join(__dirname, "/../templates/style.css"),
-  "utf-8"
-);
-let juiced = juice(htmlData, { extraCss: cssData });
-const template = hogan.compile(juiced);
+const getTemplate = (templatePath: string) => {
+  let cssData = readFileSync(
+    path.join(__dirname, "/../templates/style.css"),
+    "utf-8"
+  );
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: EMAIL_USER,
-    pass: EMAIL_PASSWORD,
-  },
-});
+  let htmlData = readFileSync(path.join(__dirname, templatePath), "utf-8");
+  let juiced = juice(htmlData, { extraCss: cssData });
 
-export const sendVerificationMail = async (user: User) => {
+  return hogan.compile(juiced);
+};
+
+export const sendVerificationMail = (
+  user: User,
+  verification: Verification
+) => {
   const { email } = user;
+
+  let template = getTemplate("/../templates/Verify.hjs");
+
+  sendMail(
+    `Hello ${user.username}, please verify your email adress`,
+    template.render({ user, verification }),
+    email
+  );
+
+  // http://localhost:3000/verify?userrole=${user.role}
+};
+
+export const sendForgotPassworldMail = (
+  user: User,
+  verification: Verification
+) => {
+  const { email } = user;
+
+  let template = getTemplate("/../templates/ForgotPassword.hjs");
+
+  sendMail(
+    `Hello ${user.username}, you requested a password reset`,
+    template.render({ user, verification }),
+    email
+  );
+};
+
+const sendMail = (subject: string, html: string, email: string) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: EMAIL_USER,
+      pass: EMAIL_PASSWORD,
+    },
+  });
 
   var mailOptions: Mail.Options = {
     from: EMAIL_USER,
     to: email,
-    subject: `Hello ${user.username}, please verify your email adress`,
-    html: template.render({ user }),
+    subject,
+    html,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) console.error(error);
     else console.log(`Email sent: ${info.response}`);
   });
-  // http://localhost:3000/verify?userrole=${user.role}
 };

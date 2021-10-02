@@ -10,6 +10,7 @@ import {
   UserRegisterInput,
   UserResponse,
 } from "@shared/SharedTypes";
+import { VerificationModel } from "@shared/entities/Verification";
 import { COOKIE_NAME } from "src/Constants";
 import { MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "@shared/Constants";
 import { IsEmail } from "@shared/utils/CheckEmail";
@@ -18,7 +19,10 @@ import {
   IObjectWithTypegooseFunction,
 } from "@typegoose/typegoose/lib/types";
 import { v4 } from "uuid";
-import { sendVerificationMail } from "src/utils/MailFactory";
+import {
+  sendForgotPassworldMail as sendForgotPasswordMail,
+  sendVerificationMail,
+} from "src/utils/MailFactory";
 
 export const userRouter = Router();
 
@@ -75,7 +79,7 @@ userRouter.post("/register", async (req, res): Promise<void> => {
       username: username,
       email: email,
       password: hashedPassword,
-      role: v4(),
+      role: "UNVERIFIED",
     });
 
     await user.save();
@@ -83,7 +87,10 @@ userRouter.post("/register", async (req, res): Promise<void> => {
     // Save cookie
     req.session.userID = user._id.valueOf();
 
-    sendVerificationMail(user);
+    let verification = await VerificationModel.create({ user, uuid: v4() });
+    await verification.save();
+
+    sendVerificationMail(user, verification);
 
     res.json({ user });
   } catch (error) {
@@ -107,17 +114,45 @@ userRouter.post("/register", async (req, res): Promise<void> => {
   }
 });
 
+userRouter.post("/forgotPassword", async (req, res) => {
+  const { usernameOrEmail } = req.body;
+  const user = await getUserByUsernameOrEmail(usernameOrEmail);
+
+  if (!user) {
+    let result: GenericResponse = {
+      error: {
+        name: "No User found",
+        message: "User was not found",
+      },
+    };
+    res.json(result);
+    return;
+  }
+
+  const verification = await VerificationModel.create({ uuid: v4(), user });
+  sendForgotPasswordMail(user, verification);
+
+  let result: GenericResponse = {};
+  return res.json(result);
+});
+
 userRouter.post("/verify", async (req, res) => {
-  let { userrole } = req.body;
+  let { uuid } = req.body;
 
-  var user:
-    | (Document<any, BeAnObject, any> &
-        User &
-        IObjectWithTypegooseFunction)
-    | null = null;
+  const verification = await VerificationModel.findOne({ uuid });
 
-  if (req.session.userID) user = await getUser(req.session.userID);
-  else user = await UserModel.findOne({ role: userrole });
+  if (!verification) {
+    let result: GenericResponse = {
+      error: {
+        name: "User Verification failed",
+        message: "Could not find Verification Key.",
+      },
+    };
+    res.json(result);
+    return;
+  }
+
+  const user = await UserModel.findOne({ _id: verification.user });
 
   if (!user) {
     let result: GenericResponse = {
@@ -139,16 +174,6 @@ userRouter.post("/verify", async (req, res) => {
     res.json(result);
     return;
   }
-  if (user.role !== userrole) {
-    let result: GenericResponse = {
-      error: {
-        name: "User Verification failed",
-        message: "Could not verify user",
-      },
-    };
-    res.json(result);
-    return;
-  }
 
   user.role = "VERIFIED";
   await user.save();
@@ -160,19 +185,8 @@ userRouter.post("/verify", async (req, res) => {
 userRouter.post("/login", async (req, res): Promise<void> => {
   let { usernameOrEmail, password }: UserLoginInput = req.body;
 
-  let user:
-    | (Document<any, BeAnObject, any> &
-        User &
-        IObjectWithTypegooseFunction)
-    | null = null;
-
-  if (IsEmail(usernameOrEmail)) {
-    user = await UserModel.findOne({ email: usernameOrEmail });
-  } else {
-    user = await UserModel.findOne({ username: usernameOrEmail });
-  }
-
   // Check in database with username and password
+  const user = await getUserByUsernameOrEmail(usernameOrEmail);
 
   if (!user) {
     let result: UserResponse = {
@@ -300,4 +314,18 @@ export const getUser = async (userID: string) => {
   return await UserModel.findOne({
     _id: new mongoose.Types.ObjectId(userID),
   });
+};
+
+export const getUserByUsernameOrEmail = async (usernameOrEmail: string) => {
+  let user:
+    | (Document<any, BeAnObject, any> & User & IObjectWithTypegooseFunction)
+    | null = null;
+
+  if (IsEmail(usernameOrEmail)) {
+    user = await UserModel.findOne({ email: usernameOrEmail });
+  } else {
+    user = await UserModel.findOne({ username: usernameOrEmail });
+  }
+
+  return user;
 };

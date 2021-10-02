@@ -9,7 +9,7 @@ import {
   SetStateAction,
 } from "react";
 import useModal from "../../hooks/useModal";
-import { SortType } from "../../pages/account";
+import { SortType } from "../../pages/account/dashboard";
 import { toErrorMap } from "../../utils/ToErrorMap";
 import ButtonComponent from "../ButtonComponent";
 import TodoItemModal from "./TodoItemModal";

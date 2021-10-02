@@ -39,7 +39,7 @@ const UserTab: FunctionComponent<UserTabProps> = ({ user, setUser }) => {
         User since {moment(user.createdAt).format("DD MMMM YYYY")}
       </h1>
       <ButtonComponent className="my-5 p-3 block bg-green-800 rounded">
-        <Link href="/account/dashboard">Dashboard</Link>
+        <Link href="/dashboard">Dashboard</Link>
       </ButtonComponent>
       <ButtonComponent
         onClick={handleLogout}

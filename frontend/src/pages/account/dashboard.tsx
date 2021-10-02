@@ -33,7 +33,7 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
     if (!data?.error && data.todos) {
       setTodos(data.todos);
     } else {
-      router.push("/login");
+      router.push("/account/login");
     }
   }, [router]);
 

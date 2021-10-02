@@ -1,8 +1,15 @@
-import { getModelForClass, mongoose, prop, Ref } from "@typegoose/typegoose";
+import {
+  getModelForClass,
+  modelOptions,
+  mongoose,
+  prop,
+  Ref,
+} from "@typegoose/typegoose";
 import { TimeStamps } from "@typegoose/typegoose/lib/defaultClasses";
 import { TodoItem } from "./TodoItem";
 
-class SavedUser extends TimeStamps {
+@modelOptions({ schemaOptions: { collection: "users" } })
+export class SavedUser extends TimeStamps {
   @prop({
     unique: true,
     validate: (val: string) => val.toLowerCase(),
@@ -17,7 +24,7 @@ class SavedUser extends TimeStamps {
   email: string;
 
   @prop()
-  role: string;
+  role: "UNVERIFIED" | "VERIFIED";
 
   @prop()
   password: string;
@@ -28,6 +35,6 @@ class SavedUser extends TimeStamps {
 
 export type User = SavedUser & {
   _id: mongoose.Types.ObjectId;
-}
+};
 
 export const UserModel = getModelForClass(SavedUser);
