@@ -30,8 +30,12 @@ const TodoItemModal: FunctionComponent<TodoItemModalProps> = ({
       title: "",
       description: "",
       done: false,
-      dueDate: new Date(),
+      dueDate: new Date().toLocaleDateString(),
     };
+  } else {
+    initialValues.dueDate = new Date(
+      initialValues.dueDate
+    ).toLocaleDateString();
   }
   return (
     <ModalComponent

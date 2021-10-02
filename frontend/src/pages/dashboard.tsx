@@ -14,9 +14,12 @@ import TodoManageContext from "../components/dashboard/TodoManageContext";
 import { UserContext } from "../components/LayoutComponent";
 interface DashboardPageProps {}
 
+export type SortType = "DATE" | "TITLE";
+
 const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
   const { user, setUser } = useContext(UserContext);
   const [showCompleted, setShowCompleted] = useState(false);
+  const [sortBy, setSortBy] = useState<SortType>("DATE");
   const [todos, setTodos] = useState<TodoItem[]>([]);
   const router = useRouter();
 
@@ -48,7 +51,7 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
             <div className="flex flex-col lg:flex-row justify-between">
               <div className="flex justify-center">
                 <TodoManageContext
-                className="flex flex-col"
+                  className="flex flex-col"
                   showCompleted={showCompleted}
                   getTodos={getTodos}
                   toogleShowCompleted={() => {
@@ -58,6 +61,7 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
               </div>
               <TodoListDisplay
                 todos={todos}
+                sortBy={sortBy}
                 getTodos={getTodos}
                 showCompleted={showCompleted}
                 className="flex-grow"

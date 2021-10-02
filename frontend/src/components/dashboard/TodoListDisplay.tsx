@@ -13,6 +13,7 @@ import { motion, Variants } from "framer-motion";
 import TodoItemDisplay from "./TodoItemDisplay";
 import useModal from "../../hooks/useModal";
 import TodoItemModal from "./TodoItemModal";
+import { SortType } from "../../pages/dashboard";
 
 const listVariant: Variants = {
   opened: {
@@ -34,6 +35,7 @@ const itemVariant: Variants = {
 
 type TodoListDisplayProps = HTMLAttributes<HTMLDivElement> & {
   showCompleted: boolean;
+  sortBy: SortType;
   todos: TodoItem[];
   getTodos: () => Promise<void>;
 };
@@ -42,7 +44,7 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
   const [selected, setSelected] = useState<TodoItem>();
   const todoModal = useModal();
 
-  const { showCompleted, todos, getTodos, ...divProps } = props;
+  const { showCompleted, sortBy, todos, getTodos, ...divProps } = props;
 
   const handleEdit = useCallback(
     async (val: TodoItem) => {
@@ -76,7 +78,17 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
 
   const todoMap = useMemo(() => {
     if (todos.length > 0) {
-      return todos
+      var todoToMap = todos;
+
+      if (sortBy === "DATE")
+        todoToMap = todos.sort(
+          (a, b) =>
+            new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
+        );
+      else if (sortBy === "TITLE")
+        todoToMap = todos.sort((a, b) => (a.title > b.title ? -1 : 1));
+
+      return todoToMap
         .map<ReactNode>((todo, i) => {
           if (showCompleted || !todo.done) {
             return (
@@ -100,10 +112,10 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
           );
         });
     }
-  }, [handleToogleCheck, openEditModal, showCompleted, todos]);
+  }, [handleToogleCheck, openEditModal, showCompleted, todos, sortBy]);
 
   return (
-    <div {...divProps }>
+    <div {...divProps}>
       <div className="mx-3 p-5">
         <motion.ul
           variants={listVariant}

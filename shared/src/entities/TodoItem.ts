@@ -12,7 +12,7 @@ export class TodoItem extends TimeStamps {
   done: boolean;
 
   @prop()
-  dueDate?: Date;
+  dueDate: string;
 }
 
 export const TodoItemModel = getModelForClass(TodoItem);

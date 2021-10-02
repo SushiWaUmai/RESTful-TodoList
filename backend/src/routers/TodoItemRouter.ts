@@ -37,9 +37,10 @@ todoItemRouter.post("/", async (req, res) => {
     return;
   }
 
-  const { title, description } = req.body;
-
-  const item = await TodoItemModel.create({ title, description, done: false });
+  // const { title, description, dueDate } = req.body;
+  const inputItem: TodoItem = req.body;
+  // const item = await TodoItemModel.create({ title, description, dueDate, done: false });
+  const item = await TodoItemModel.create(inputItem);
   await item.save();
 
   owner.todoItems.push(item);

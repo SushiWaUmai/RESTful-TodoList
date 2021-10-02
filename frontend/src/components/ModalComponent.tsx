@@ -61,7 +61,7 @@ const ModalComponent: FunctionComponent<ModalComponentProps> = ({
             >
               <div className="flex flex-col justify-center">
                 <div className="flex justify-between">
-                  <h1 className="lg:mr-64 text-3xl p-3">{modalTitle}</h1>
+                  <h1 className="md:mr-32 lg:mr-64 text-3xl p-3">{modalTitle}</h1>
                   <ButtonComponent onClick={handleClose}>
                     <BsX size={48} />
                   </ButtonComponent>

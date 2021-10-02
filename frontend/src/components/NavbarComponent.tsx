@@ -14,9 +14,7 @@ export default function NavbarComponent() {
       setIsOpen(true);
     }
     window.onresize = () => {
-      if (document.body.clientWidth > 1024) {
-        setIsOpen(true);
-      }
+      setIsOpen(document.body.clientWidth > 1024)
     };
   }, []);
 
