@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FunctionComponent } from "react";
 import { BsX } from "react-icons/bs";
 import ButtonComponent from "./ButtonComponent";
-import { Dialog } from "@headlessui/react";
 
 const newspaper = {
   hidden: {

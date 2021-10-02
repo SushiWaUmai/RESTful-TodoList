@@ -80,13 +80,13 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
     if (todos.length > 0) {
       var todoToMap = todos;
 
-      if (sortBy === "DATE")
+      if (sortBy === "Date")
         todoToMap = todos.sort(
           (a, b) =>
             new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
         );
-      else if (sortBy === "TITLE")
-        todoToMap = todos.sort((a, b) => (a.title > b.title ? -1 : 1));
+      else if (sortBy === "Title")
+        todoToMap = todos.sort((a, b) => (a.title < b.title ? -1 : 1));
 
       return todoToMap
         .map<ReactNode>((todo, i) => {
@@ -116,23 +116,21 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
 
   return (
     <div {...divProps}>
-      <div className="mx-3 p-5">
-        <motion.ul
-          variants={listVariant}
-          initial="closed"
-          animate="opened"
-          exit="closed"
-        >
-          {todoMap}
-        </motion.ul>
-        <TodoItemModal
-          modalTitle="Edit TodoItem"
-          buttonLabel="Edit Todo"
-          initialValues={selected}
-          todoModal={todoModal}
-          onSubmit={handleEdit}
-        />
-      </div>
+      <motion.ul
+        variants={listVariant}
+        initial="closed"
+        animate="opened"
+        exit="closed"
+      >
+        {todoMap}
+      </motion.ul>
+      <TodoItemModal
+        modalTitle="Edit TodoItem"
+        buttonLabel="Edit Todo"
+        initialValues={selected}
+        todoModal={todoModal}
+        onSubmit={handleEdit}
+      />
     </div>
   );
 };

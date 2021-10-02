@@ -2,14 +2,23 @@ import { TodoItem } from "@shared/entities/TodoItem";
 import { GenericResponse, TodoItemResponse } from "@shared/SharedTypes";
 import axios from "axios";
 import { FormikHelpers } from "formik";
-import { FunctionComponent, HTMLAttributes } from "react";
+import {
+  Dispatch,
+  FunctionComponent,
+  HTMLAttributes,
+  SetStateAction,
+} from "react";
 import useModal from "../../hooks/useModal";
+import { SortType } from "../../pages/dashboard";
 import { toErrorMap } from "../../utils/ToErrorMap";
 import ButtonComponent from "../ButtonComponent";
 import TodoItemModal from "./TodoItemModal";
+import TodoSortListbox from "./TodoSortListbox";
 
 type TodoManageContextProps = HTMLAttributes<HTMLDivElement> & {
   showCompleted: boolean;
+  sortBy: SortType;
+  setSortBy: Dispatch<SetStateAction<"Date" | "Title">>;
   getTodos: () => Promise<void>;
   toogleShowCompleted: () => void;
 };
@@ -19,7 +28,14 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
 ) => {
   const todoModal = useModal();
 
-  const { showCompleted, getTodos, toogleShowCompleted, ...divProps } = props;
+  const {
+    showCompleted,
+    sortBy,
+    setSortBy,
+    getTodos,
+    toogleShowCompleted,
+    ...divProps
+  } = props;
   const handleSubmit = async (
     values: TodoItem,
     { setErrors, setSubmitting }: FormikHelpers<TodoItem>
@@ -79,8 +95,14 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
         onClick={handleDeleteAll}
         className="m-5 p-4 rounded bg-gradient-to-tr from-purple-800 to-red-500"
       >
-        Delete Completed 
+        Delete Completed
       </ButtonComponent>
+
+      <TodoSortListbox
+        className="m-5 p-4 rounded bg-gray-800"
+        selectedSort={sortBy}
+        setSelectedSort={setSortBy}
+      />
 
       <TodoItemModal
         modalTitle="Create TodoItem"
