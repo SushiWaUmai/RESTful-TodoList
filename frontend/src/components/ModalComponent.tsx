@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FunctionComponent } from "react";
 import { BsX } from "react-icons/bs";
 import ButtonComponent from "./ButtonComponent";
+import { Dialog } from "@headlessui/react";
 
 const newspaper = {
   hidden: {
@@ -61,7 +62,9 @@ const ModalComponent: FunctionComponent<ModalComponentProps> = ({
             >
               <div className="flex flex-col justify-center">
                 <div className="flex justify-between">
-                  <h1 className="md:mr-32 lg:mr-64 text-3xl p-3">{modalTitle}</h1>
+                  <h1 className="md:mr-32 lg:mr-64 text-3xl p-3">
+                    {modalTitle}
+                  </h1>
                   <ButtonComponent onClick={handleClose}>
                     <BsX size={48} />
                   </ButtonComponent>

@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext } from "react";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { Tab } from "@headlessui/react";
 import ButtonComponent from "../components/ButtonComponent";
 import { UserContext } from "../components/LayoutComponent";
 import SettingsTab from "../components/account/SettingsTab";
@@ -18,35 +18,35 @@ const AccountPage: FunctionComponent<AccountPageProps> = () => {
         <br />
 
         {user ? (
-          <Tabs>
+          <Tab.Group>
             <div className="flex">
               <div className="bg-gray-800 p-5">
-                <TabList>
-                  <Tab>
+                <Tab.List>
+                  <Tab className="block">
                     <ButtonComponent className="block p-5 hover:bg-gray-400 hover:text-black">
                       User
                     </ButtonComponent>
                   </Tab>
-                  <Tab>
+                  <Tab className="block">
                     <ButtonComponent className="block p-5 hover:bg-gray-400 hover:text-black">
                       Settings
                     </ButtonComponent>
                   </Tab>
-                </TabList>
+                </Tab.List>
               </div>
               <div className="p-5 m-5 flex-grow">
                 <div className="p-5 rounded bg-gray-900">
-                  <TabPanel>
-                    <UserTab user={user} setUser={setUser}/>
-                 </TabPanel>
+                  <Tab.Panel>
+                    <UserTab user={user} setUser={setUser} />
+                  </Tab.Panel>
 
-                  <TabPanel>
+                  <Tab.Panel>
                     <SettingsTab />
-                  </TabPanel>
+                  </Tab.Panel>
                 </div>
               </div>
             </div>
-          </Tabs>
+          </Tab.Group>
         ) : null}
       </div>
     </div>
