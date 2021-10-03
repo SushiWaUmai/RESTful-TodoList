@@ -10,6 +10,7 @@ import {
 } from "react";
 import useModal from "../../hooks/useModal";
 import { SortType } from "../../pages/account/dashboard";
+import { BACKEND_URI } from "../../utils/Constants";
 import { toErrorMap } from "../../utils/ToErrorMap";
 import ButtonComponent from "../ButtonComponent";
 import TodoItemModal from "./TodoItemModal";
@@ -41,7 +42,7 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
     { setErrors, setSubmitting }: FormikHelpers<TodoItem>
   ) => {
     let data: TodoItemResponse = await (
-      await axios.post("http://localhost:4000/todos/", values, {
+      await axios.post(`${BACKEND_URI}/todos/`, values, {
         withCredentials: true,
       })
     )?.data;
@@ -55,7 +56,7 @@ const TodoManageContext: FunctionComponent<TodoManageContextProps> = (
 
   const handleDeleteAll = async () => {
     let data: GenericResponse = await (
-      await axios.delete("http://localhost:4000/todos/deleteAll/", {
+      await axios.delete(`${BACKEND_URI}/todos/deleteAll/`, {
         withCredentials: true,
       })
     )?.data;

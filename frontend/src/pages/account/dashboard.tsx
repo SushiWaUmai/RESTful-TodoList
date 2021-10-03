@@ -12,6 +12,8 @@ import {
 import TodoListDisplay from "../../components/dashboard/TodoListDisplay";
 import TodoManageContext from "../../components/dashboard/TodoManageContext";
 import { UserContext } from "../../components/LayoutComponent";
+import { BACKEND_URI } from "../../utils/Constants";
+
 interface DashboardPageProps {}
 
 export const SortTypeOptions = ["Date", "Title"] as const;
@@ -26,7 +28,7 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
 
   const getTodos = useCallback(async () => {
     let data: UserTodoItemResponse = (
-      await axios.get("http://localhost:4000/todos", {
+      await axios.get(`${BACKEND_URI}/todos`, {
         withCredentials: true,
       })
     )?.data;

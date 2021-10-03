@@ -16,6 +16,7 @@ import {
   MIN_USERNAME_LENGTH,
 } from "../../../../shared/src/Constants";
 import { IsEmail } from "../../../../shared/src/utils/CheckEmail";
+import { BACKEND_URI } from "../../utils/Constants";
 
 type OptionalUsernamePasswordRepeatInput = Partial<UsernamePasswordRepeatInput>;
 
@@ -31,7 +32,7 @@ export default function RegisterPage() {
     { setErrors, setSubmitting }: FormikHelpers<UsernamePasswordRepeatInput>
   ) => {
     let data: UserResponse = await (
-      await axios.post("http://localhost:4000/user/register", values, {
+      await axios.post(`${BACKEND_URI}/user/register`, values, {
         withCredentials: true,
       })
     )?.data;

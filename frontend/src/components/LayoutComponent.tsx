@@ -4,6 +4,7 @@ import NavbarComponent from "./NavbarComponent";
 import FooterComponent from "./FooterComponent";
 import { UserNoPassword, UserResponse } from "@shared/SharedTypes";
 import axios from "axios";
+import { BACKEND_URI } from "../utils/Constants";
 
 interface UserContextProps {
   user: UserNoPassword | undefined;
@@ -25,7 +26,7 @@ const LayoutComponent: FunctionComponent<LayoutComponentProps> = ({
   useEffect(() => {
     const getUser = async () => {
       let data: UserResponse = (
-        await axios.get("http://localhost:4000/user/me", {
+        await axios.get(`${BACKEND_URI}/user/me`, {
           withCredentials: true,
         })
       )?.data;

@@ -6,6 +6,7 @@ import { FunctionComponent, useContext } from "react";
 import ButtonComponent from "../../components/ButtonComponent";
 import InputFieldComponent from "../../components/InputFieldComponent";
 import { UserContext } from "../../components/LayoutComponent";
+import { BACKEND_URI } from "../../utils/Constants";
 import { toErrorMap } from "../../utils/ToErrorMap";
 
 interface LoginPageProps {}
@@ -19,7 +20,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
     { setErrors, setSubmitting }: FormikHelpers<UserLoginInput>
   ) => {
     let data: UserResponse = await (
-      await axios.post("http://localhost:4000/user/login", values, {
+      await axios.post(`${BACKEND_URI}/user/login`, values, {
         withCredentials: true,
       })
     )?.data;

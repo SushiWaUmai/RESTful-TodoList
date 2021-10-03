@@ -6,7 +6,15 @@ import { userRouter } from "./routers/UserRouter";
 import { todoItemRouter } from "./routers/TodoItemRouter";
 import session from "express-session";
 import { mongoose } from "@typegoose/typegoose";
-import { COOKIE_NAME, DATABASE_NAME, MONGO_URI, PORT, SESSION_SECRET, __prod__ } from "./Constants";
+import {
+  COOKIE_NAME,
+  DATABASE_NAME,
+  FRONTEND_URI,
+  MONGO_URI,
+  PORT,
+  SESSION_SECRET,
+  __prod__,
+} from "./Constants";
 import MongoStore from "connect-mongo";
 
 async function main() {
@@ -17,6 +25,7 @@ async function main() {
     console.log("MongoDB connected")
   );
 
+  console.log(`Setting CORS origin to ${FRONTEND_URI}`);
   app.use(
     cors({
       origin: ["http://localhost:3000"],

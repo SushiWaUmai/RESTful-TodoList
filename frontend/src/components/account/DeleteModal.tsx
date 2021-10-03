@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import { useRouter } from "next/dist/client/router";
 import { FunctionComponent, useContext } from "react";
 import { ModalAttributes } from "../../hooks/useModal";
+import { BACKEND_URI } from "../../utils/Constants";
 import ButtonComponent from "../ButtonComponent";
 import InputFieldComponent from "../InputFieldComponent";
 import { UserContext } from "../LayoutComponent";
@@ -26,7 +27,7 @@ const DeleteModal: FunctionComponent<DeleteModalProps> = ({ deleteModal }) => {
     };
 
     let data: GenericResponse = await (
-      await axios.post("http://localhost:4000/user/delete", reqBody, {
+      await axios.post(`${BACKEND_URI}/user/delete`, reqBody, {
         withCredentials: true,
       })
     )?.data;

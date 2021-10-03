@@ -4,6 +4,7 @@ import { useRouter } from "next/dist/client/router";
 import { FunctionComponent, useEffect, useState } from "react";
 import ButtonComponent from "../../components/ButtonComponent";
 import Link from "next/link";
+import { BACKEND_URI } from "../../utils/Constants";
 
 interface UserRolePageProps {}
 
@@ -21,13 +22,13 @@ const UserRolePage: FunctionComponent<UserRolePageProps> = () => {
 
       let data: GenericResponse = await (
         await axios.post(
-          "http://localhost:4000/user/verify",
+          `${BACKEND_URI}/user/verify`,
           { uuid },
           {
             withCredentials: true,
           }
         )
-      )?.data;
+      )?.data;  
 
       if (data && !data.error) {
         setVerified(true);

@@ -14,6 +14,7 @@ import TodoItemDisplay from "./TodoItemDisplay";
 import useModal from "../../hooks/useModal";
 import TodoItemModal from "./TodoItemModal";
 import { SortType } from "../../pages/account/dashboard";
+import { BACKEND_URI } from "../../utils/Constants";
 
 const listVariant: Variants = {
   opened: {
@@ -49,7 +50,7 @@ const TodoListDisplay: FunctionComponent<TodoListDisplayProps> = (props) => {
   const handleEdit = useCallback(
     async (val: TodoItem) => {
       let data: GenericResponse = await (
-        await axios.put("http://localhost:4000/todos/", val, {
+        await axios.put(`${BACKEND_URI}/todos/`, val, {
           withCredentials: true,
         })
       )?.data;

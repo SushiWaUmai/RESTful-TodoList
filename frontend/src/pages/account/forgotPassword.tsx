@@ -8,6 +8,7 @@ import ButtonComponent from "../../components/ButtonComponent";
 import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 import { ChangePasswordInput } from "@shared/SharedTypes";
+import { BACKEND_URI } from "../../utils/Constants";
 
 interface ForgotPasswordPageProps {}
 interface PasswordInput {
@@ -38,7 +39,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     };
 
     let data = await (
-      await axios.post("http://localhost:4000/user/changePassword", reqBody, {
+      await axios.post(`${BACKEND_URI}/user/changePassword`, reqBody, {
         withCredentials: true,
       })
     )?.data;

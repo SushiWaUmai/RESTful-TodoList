@@ -5,6 +5,7 @@ import axios from "axios";
 import moment from "moment";
 import { useRouter } from "next/dist/client/router";
 import ButtonComponent from "../ButtonComponent";
+import { BACKEND_URI } from "../../utils/Constants";
 
 interface UserTabProps {
   user: UserNoPassword;
@@ -16,7 +17,7 @@ const UserTab: FunctionComponent<UserTabProps> = ({ user, setUser }) => {
 
   const handleLogout = async () => {
     let data: GenericResponse = (
-      await axios.get("http://localhost:4000/user/logout", {
+      await axios.get(`${BACKEND_URI}/user/logout`, {
         withCredentials: true,
       })
     )?.data;

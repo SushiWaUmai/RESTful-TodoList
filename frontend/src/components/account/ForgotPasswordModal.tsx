@@ -2,6 +2,7 @@ import axios from "axios";
 import { Form, Formik } from "formik";
 import { FunctionComponent } from "react";
 import { ModalAttributes } from "../../hooks/useModal";
+import { BACKEND_URI } from "../../utils/Constants";
 import ButtonComponent from "../ButtonComponent";
 import InputFieldComponent from "../InputFieldComponent";
 import ModalComponent from "../ModalComponent";
@@ -16,7 +17,7 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = ({
   const handleForgotPassword = async (val: { usernameOrEmail: string }) => {
     const data = await (
       await axios.post(
-        "http://localhost:4000/user/forgotPassword",
+        `${BACKEND_URI}/user/forgotPassword`,
         { usernameOrEmail: val.usernameOrEmail },
         { withCredentials: true }
       )
@@ -24,8 +25,7 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = ({
 
     if (data?.error) {
       console.log("Failed to send forgot password email");
-    }
-    else{
+    } else {
       forgotPasswordModal.close();
     }
   };
