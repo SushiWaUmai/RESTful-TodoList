@@ -19,7 +19,7 @@ const AccountPage: FunctionComponent<AccountPageProps> = () => {
 
         {user ? (
           <Tab.Group>
-            <div className="flex">
+            <div className="flex flex-col lg:flex-row">
               <div className="bg-gray-800 p-5">
                 <Tab.List>
                   <Tab className="block">
@@ -34,7 +34,7 @@ const AccountPage: FunctionComponent<AccountPageProps> = () => {
                   </Tab>
                 </Tab.List>
               </div>
-              <div className="p-5 m-5 flex-grow">
+              <div className="p-3 m-3 flex-grow">
                 <div className="p-5 rounded bg-gray-900">
                   <Tab.Panel>
                     <UserTab user={user} setUser={setUser} />
