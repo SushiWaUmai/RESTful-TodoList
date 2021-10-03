@@ -25,6 +25,9 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = ({
     if (data?.error) {
       console.log("Failed to send forgot password email");
     }
+    else{
+      forgotPasswordModal.close();
+    }
   };
 
   return (

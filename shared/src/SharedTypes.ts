@@ -40,3 +40,8 @@ export interface UserDeleteInput {
 export interface GenericResponse {
   error?: Error;
 }
+
+export interface ChangePasswordInput {
+  uuid: string;
+  newPassword: string;
+}

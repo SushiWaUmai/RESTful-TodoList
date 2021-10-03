@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { FunctionComponent, useEffect, useState } from "react";
 import ButtonComponent from "../../components/ButtonComponent";
+import Link from "next/link";
 
 interface UserRolePageProps {}
 
@@ -45,13 +46,10 @@ const UserRolePage: FunctionComponent<UserRolePageProps> = () => {
       <div className="container m-5 mx-auto">
         <h1 className="text-3xl">{verificationMessage}</h1>
         <br />
-        <ButtonComponent
-          onClick={() => {
-            router.push(verified ? "/account/dashboard" : "/");
-          }}
-          className="p-3 rounded bg-gradient-to-br from-yellow-400 to-red-500"
-        >
-          Go to {verified ? "dashboard" : "Home"}
+        <ButtonComponent className="p-3 rounded bg-gradient-to-br from-yellow-400 to-red-500">
+          <Link href={verified ? "/account/dashboard" : "/"}>
+            Go to {verified ? "dashboard" : "Home"}
+          </Link>
         </ButtonComponent>
       </div>
     </div>

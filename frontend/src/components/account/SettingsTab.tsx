@@ -14,9 +14,6 @@ const SettingsTab: FunctionComponent<SettingsTabProps> = () => {
     <>
       <h1 className="text-4xl lg:text-5xl">Settings</h1>
       <br />
-      <ButtonComponent className="my-5 p-3 block bg-gradient-to-br from-yellow-400 to-red-500 rounded">
-        Edit Profile
-      </ButtonComponent>
       <ButtonComponent
         onClick={forgotPasswordModal.open}
         className="my-5 p-3 block bg-gradient-to-br from-yellow-400 to-red-500 rounded"

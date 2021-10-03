@@ -4,6 +4,7 @@ import { Router } from "express";
 import mongoose, { Document } from "mongoose";
 import { User, UserModel } from "@shared/entities/User";
 import {
+  ChangePasswordInput,
   GenericResponse,
   UserDeleteInput,
   UserLoginInput,
@@ -134,6 +135,42 @@ userRouter.post("/forgotPassword", async (req, res) => {
 
   let result: GenericResponse = {};
   return res.json(result);
+});
+
+userRouter.post("/changePassword", async (req, res) => {
+  const { uuid, newPassword }: ChangePasswordInput = req.body;
+
+  const verification = await VerificationModel.findOne({ uuid });
+
+  if (!verification) {
+    let result: GenericResponse = {
+      error: {
+        name: "User Verification failed",
+        message: "Could not find Verification Key.",
+      },
+    };
+    res.json(result);
+    return;
+  }
+
+  const user = await UserModel.findOne({ _id: verification.user });
+
+  if (!user) {
+    let result: GenericResponse = {
+      error: {
+        name: "User Verification failed",
+        message: "Could not find user.",
+      },
+    };
+    res.json(result);
+    return;
+  }
+
+  user.password = await argon2.hash(newPassword);
+  user.save();
+
+  let result: GenericResponse = {};
+  res.json(result);
 });
 
 userRouter.post("/verify", async (req, res) => {
