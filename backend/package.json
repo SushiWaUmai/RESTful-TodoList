@@ -5,13 +5,13 @@
   "main": "dist/backend/src/index.js",
   "scripts": {
     "dev": "yarn clean && nodemon --exec yarn build",
-    "build": "yarn kill && tsc && yarn css && yarn copy && yarn start",
+    "build": "yarn kill && tsc && yarn copy && yarn css && yarn start",
     "cleanbuild": "yarn clean && yarn build",
     "clean": "rimraf dist",
     "kill": "dotenv cross-var kill-port %PORT%",
     "start": "node dist/backend/src",
-    "copy": "copyfiles -u 1 src/templates/* dist/backend/src",
-    "css": "tailwindcss -o src/templates/style.css"
+    "css": "tailwindcss -o dist/backend/src/templates/style.css",
+    "copy": "copyfiles -u 1 src/templates/* dist/backend/src"
   },
   "keywords": [],
   "author": "Eugene Matsumura",
