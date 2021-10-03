@@ -1,4 +1,5 @@
 # RESTful Todolist :tada:
+[![wakatime](https://wakatime.com/badge/user/8cc0a80a-7a1a-448c-8c5e-742ed9a33792/project/59485b0f-71d2-4a2a-88d4-8e43b292df09.svg)](https://wakatime.com/badge/user/8cc0a80a-7a1a-448c-8c5e-742ed9a33792/project/59485b0f-71d2-4a2a-88d4-8e43b292df09)
 
 This is a side project for learning the web.
 
