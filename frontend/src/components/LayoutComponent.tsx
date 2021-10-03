@@ -43,6 +43,7 @@ const LayoutComponent: FunctionComponent<LayoutComponentProps> = ({
         <div className="flex h-screen flex-col justify-between">
           <Head>
             <meta httpEquiv="content-language" content="en" />
+            <link rel="icon" href="/favicon.svg"></link>
           </Head>
           <header>
             <NavbarComponent />

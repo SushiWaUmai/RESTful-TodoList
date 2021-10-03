@@ -7,6 +7,7 @@ import { toErrorMap } from "../../utils/ToErrorMap";
 import ButtonComponent from "../../components/ButtonComponent";
 import { UserRegisterInput, UserResponse } from "@shared/SharedTypes";
 import { UserContext } from "../../components/LayoutComponent";
+import Head from "next/head";
 
 // TODO: figure out how to import with alias
 // import { MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "@shared/Constants";
@@ -72,70 +73,75 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="my-5">
-        <h1 className="text-5xl">Register</h1>
-        <hr />
+    <>
+      <Head>
+        <title>Register | RESTful Todolist</title>
+      </Head>
+      <div className="container mx-auto px-4">
+        <div className="my-5">
+          <h1 className="text-5xl">Register</h1>
+          <hr />
+        </div>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validateOnBlur={true}
+          validateOnChange={false}
+          validate={handleValidate}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <InputFieldComponent
+                fieldProps={{
+                  type: "text",
+                  name: "username",
+                  placeholder: "Username",
+                  className: "inputfield",
+                }}
+                divProps={{ className: "my-5" }}
+                label="Username"
+              />
+              <InputFieldComponent
+                fieldProps={{
+                  type: "email",
+                  name: "email",
+                  placeholder: "E-Mail",
+                  className: "inputfield",
+                }}
+                divProps={{ className: "my-5" }}
+                label="E-Mail"
+              />
+              <InputFieldComponent
+                fieldProps={{
+                  type: "password",
+                  name: "password",
+                  placeholder: "Password",
+                  className: "inputfield",
+                }}
+                divProps={{ className: "my-5" }}
+                label="Password"
+              />
+              <InputFieldComponent
+                fieldProps={{
+                  type: "password",
+                  name: "repeatPassword",
+                  placeholder: "Repeat Password",
+                  className: "inputfield",
+                }}
+                divProps={{ className: "my-5" }}
+                label="Repeat Password"
+              />
+              <ButtonComponent
+                className="p-3 bg-gradient-to-br from-yellow-400 to-red-500 rounded"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Create Account
+              </ButtonComponent>
+            </Form>
+          )}
+        </Formik>
       </div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validateOnBlur={true}
-        validateOnChange={false}
-        validate={handleValidate}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <InputFieldComponent
-              fieldProps={{
-                type: "text",
-                name: "username",
-                placeholder: "Username",
-                className: "inputfield",
-              }}
-              divProps={{ className: "my-5" }}
-              label="Username"
-            />
-            <InputFieldComponent
-              fieldProps={{
-                type: "email",
-                name: "email",
-                placeholder: "E-Mail",
-                className: "inputfield",
-              }}
-              divProps={{ className: "my-5" }}
-              label="E-Mail"
-            />
-            <InputFieldComponent
-              fieldProps={{
-                type: "password",
-                name: "password",
-                placeholder: "Password",
-                className: "inputfield",
-              }}
-              divProps={{ className: "my-5" }}
-              label="Password"
-            />
-            <InputFieldComponent
-              fieldProps={{
-                type: "password",
-                name: "repeatPassword",
-                placeholder: "Repeat Password",
-                className: "inputfield",
-              }}
-              divProps={{ className: "my-5" }}
-              label="Repeat Password"
-            />
-            <ButtonComponent
-              className="p-3 bg-gradient-to-br from-yellow-400 to-red-500 rounded"
-              type="submit"
-              disabled={isSubmitting}
-            >
-              Create Account
-            </ButtonComponent>
-          </Form>
-        )}
-      </Formik>
-    </div>
+    </>
   );
 }

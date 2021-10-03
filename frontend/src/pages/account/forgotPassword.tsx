@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 import { ChangePasswordInput } from "@shared/SharedTypes";
 import { BACKEND_URI } from "../../utils/Constants";
+import Head from "next/head";
 
 interface ForgotPasswordPageProps {}
 interface PasswordInput {
@@ -71,61 +72,66 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="my-5">
-        <h1 className="text-5xl">Reset Password</h1>
-        <hr />
-      </div>
-      {!passwordChanged ? (
-        <Formik
-          initialValues={initialValues}
-          validate={handleValidate}
-          validateOnBlur={true}
-          validateOnChange={false}
-          onSubmit={handleChangePassword}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <InputFieldComponent
-                fieldProps={{
-                  type: "password",
-                  name: "newPassword",
-                  placeholder: "New password",
-                  className: "inputfield",
-                }}
-                divProps={{ className: "my-5" }}
-                label="New password"
-              />
-              <InputFieldComponent
-                fieldProps={{
-                  type: "password",
-                  name: "repeatNewPassword",
-                  placeholder: "Repeat new password",
-                  className: "inputfield",
-                }}
-                divProps={{ className: "my-5" }}
-                label="Repeat new password"
-              />
-
-              <ButtonComponent
-                className="p-3 bg-gradient-to-br from-yellow-400 to-red-500 rounded"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Reset Password
-              </ButtonComponent>
-            </Form>
-          )}
-        </Formik>
-      ) : (
-        <div>
-          <p>Your Passoword has been reset</p>
-          <ButtonComponent className="p-3 bg-gradient-to-br from-yellow-400 to-red-500 rounded">
-            <Link href="/account/dashboard">Back to Dashboard</Link>
-          </ButtonComponent>
+    <>
+      <Head>
+        <title>Forgot Password | RESTful Todolist</title>
+      </Head>
+      <div className="container mx-auto px-4">
+        <div className="my-5">
+          <h1 className="text-5xl">Reset Password</h1>
+          <hr />
         </div>
-      )}
-    </div>
+        {!passwordChanged ? (
+          <Formik
+            initialValues={initialValues}
+            validate={handleValidate}
+            validateOnBlur={true}
+            validateOnChange={false}
+            onSubmit={handleChangePassword}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <InputFieldComponent
+                  fieldProps={{
+                    type: "password",
+                    name: "newPassword",
+                    placeholder: "New password",
+                    className: "inputfield",
+                  }}
+                  divProps={{ className: "my-5" }}
+                  label="New password"
+                />
+                <InputFieldComponent
+                  fieldProps={{
+                    type: "password",
+                    name: "repeatNewPassword",
+                    placeholder: "Repeat new password",
+                    className: "inputfield",
+                  }}
+                  divProps={{ className: "my-5" }}
+                  label="Repeat new password"
+                />
+
+                <ButtonComponent
+                  className="p-3 bg-gradient-to-br from-yellow-400 to-red-500 rounded"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Reset Password
+                </ButtonComponent>
+              </Form>
+            )}
+          </Formik>
+        ) : (
+          <div>
+            <p>Your Passoword has been reset</p>
+            <ButtonComponent className="p-3 bg-gradient-to-br from-yellow-400 to-red-500 rounded">
+              <Link href="/account/dashboard">Back to Dashboard</Link>
+            </ButtonComponent>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

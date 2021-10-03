@@ -13,6 +13,7 @@ import TodoListDisplay from "../../components/dashboard/TodoListDisplay";
 import TodoManageContext from "../../components/dashboard/TodoManageContext";
 import { UserContext } from "../../components/LayoutComponent";
 import { BACKEND_URI } from "../../utils/Constants";
+import Head from "next/head";
 
 interface DashboardPageProps {}
 
@@ -44,42 +45,47 @@ const DashboardPage: FunctionComponent<DashboardPageProps> = () => {
   }, [getTodos]);
 
   return (
-    <div className="flex justify-center">
-      <div className="container p-5 m-3">
-        {user ? (
-          <div>
-            <h1 className="text-5xl">Welcome {user.username}!</h1>
-            <hr />
-            <br />
-            <div className="flex flex-col lg:flex-row justify-between">
-              <div className="flex justify-center">
-                <TodoManageContext
+    <>
+      <Head>
+        <title>Dashboard | RESTful Todolist</title>
+      </Head>
+      <div className="flex justify-center">
+        <div className="container p-5 m-3">
+          {user ? (
+            <div>
+              <h1 className="text-5xl">Welcome {user.username}!</h1>
+              <hr />
+              <br />
+              <div className="flex flex-col lg:flex-row justify-between">
+                <div className="flex justify-center">
+                  <TodoManageContext
+                    sortBy={sortBy}
+                    setSortBy={setSortBy}
+                    className="flex flex-col"
+                    showCompleted={showCompleted}
+                    getTodos={getTodos}
+                    toogleShowCompleted={() => {
+                      setShowCompleted(!showCompleted);
+                    }}
+                  />
+                </div>
+                <TodoListDisplay
+                  todos={todos}
                   sortBy={sortBy}
-                  setSortBy={setSortBy}
-                  className="flex flex-col"
-                  showCompleted={showCompleted}
                   getTodos={getTodos}
-                  toogleShowCompleted={() => {
-                    setShowCompleted(!showCompleted);
-                  }}
+                  showCompleted={showCompleted}
+                  className="flex-grow"
                 />
               </div>
-              <TodoListDisplay
-                todos={todos}
-                sortBy={sortBy}
-                getTodos={getTodos}
-                showCompleted={showCompleted}
-                className="flex-grow"
-              />
             </div>
-          </div>
-        ) : (
-          <div className="flex justify-center align-middle">
-            <h1 className="text-5xl">Log in to see your todos here!</h1>
-          </div>
-        )}
+          ) : (
+            <div className="flex justify-center align-middle">
+              <h1 className="text-5xl">Log in to see your todos here!</h1>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
